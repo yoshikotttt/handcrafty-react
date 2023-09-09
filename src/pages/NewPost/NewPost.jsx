@@ -2,11 +2,11 @@
 
 const NewPost = () => {
   return (
-    <div>NewPost</div>
-    
-
-    
-  )
+    <>
+      <div>NewPost</div>
+      
+    </>
+  );
 }
 
 export default NewPost
