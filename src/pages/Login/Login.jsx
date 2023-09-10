@@ -4,6 +4,8 @@ import "../../App.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   const {
@@ -12,23 +14,31 @@ const Login = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
+const navigate = useNavigate();
+
+
   const onSubmit = (data) => {
     console.log(data);
     axios
       .post("http://localhost/api/login", data)
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         // サーバーからのレスポンスデータからトークンを抽出
         const receivedToken = response.data.token;
+        const receivedId = response.data.user.id;
 
         // トークンを変数に格納
         const token = receivedToken;
+        const user_id = receivedId;
 
-        // トークンをコンソールに表示（確認用）
-        // console.log(token);
+        // コンソールに表示（確認用）
+        // console.log(user_id);
 
         // トークンをクッキーに保存
         Cookies.set("token", token, { expires: 7 }); // 有効期限を設定
+        Cookies.set("user_id", user_id, { expires: 7 }); // 有効期限を設定
+
+        navigate("/posts");
       })
       .catch((error) => {
         console.log(error);
