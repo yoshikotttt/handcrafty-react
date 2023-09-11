@@ -28,7 +28,17 @@ const Posts = () => {
         <h2>投稿一覧</h2>
         <ul>
           {items.map((item) =>
-            <li key={item.id}>{item.title}</li>
+            <li key={item.id}>
+              {item.title}
+               {item.image_url && (
+                    <img 
+                    src={`http://localhost/${item.image_url}`} 
+                    alt="アイテム画像" 
+                    style={{ width:"100px",height:"100px" }}
+                    />
+               )}
+              </li>
+            
           )}
         </ul>
       </div>
