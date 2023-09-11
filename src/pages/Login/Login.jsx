@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import Logout from "../../components/other/Logout";
 
 
 const Login = () => {
@@ -68,6 +69,8 @@ const navigate = useNavigate();
 
         <button type="submit">送信</button>
       </form>
+
+      <Logout/>
     </div>
   );
 };
