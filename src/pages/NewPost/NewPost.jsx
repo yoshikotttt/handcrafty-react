@@ -16,19 +16,6 @@ const NewPost = () => {
   const [image, setImage] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
 
-  // // キャプチャ画像を表示するための関数
-  // const displayCapturedImage = () => {
-  //   if (capturedImage) {
-  //     return (
-  //       <img
-  //         src={capturedImage}
-  //         alt="キャプチャされた画像"
-  //         style={{ width: "150px", height: "150px" }}
-  //       />
-  //     );
-  //   }
-  //   return <div>ここに画像が表示されます</div>;
-  // };
 
   const onImageChange = (event) => {
     const file = event.target.files[0];
