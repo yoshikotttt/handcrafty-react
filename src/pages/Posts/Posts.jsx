@@ -2,7 +2,8 @@ import {useEffect, useState} from 'react'
 // import Cookies from 'js-cookie';
 // import { useNavigate } from "react-router-dom";
 import NewPostButton from '../../components/common/NewPostButton';
-import axios from 'axios'
+import axios from 'axios';
+import "./Posts.css"
 
 
 
@@ -29,7 +30,7 @@ const Posts = () => {
         <ul>
           {items.map((item) =>
             <li key={item.id}>
-              {item.title}
+              {/* {item.title} */}
                {item.image_url && (
                     <img 
                     src={`http://localhost/${item.image_url}`} 
