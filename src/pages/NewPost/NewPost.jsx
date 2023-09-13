@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "../../App.css";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Camera from "../../components/common/Camera";
 // import { useNavigate } from "react-router-dom";
 
 const NewPost = () => {
@@ -13,25 +14,59 @@ const NewPost = () => {
   // console.log(user_id);
 
   const [image, setImage] = useState(null);
+  const [capturedImage, setCapturedImage] = useState(null);
+
+  // // キャプチャ画像を表示するための関数
+  // const displayCapturedImage = () => {
+  //   if (capturedImage) {
+  //     return (
+  //       <img
+  //         src={capturedImage}
+  //         alt="キャプチャされた画像"
+  //         style={{ width: "150px", height: "150px" }}
+  //       />
+  //     );
+  //   }
+  //   return <div>ここに画像が表示されます</div>;
+  // };
 
   const onImageChange = (event) => {
     const file = event.target.files[0];
     setImage(file);
   };
 
+  const onCapture = (imageSrc) => {
+    setCapturedImage(imageSrc);
+  };
+
   const onSubmit = async (data) => {
     const formData = new FormData();
-    formData.append("title",data.title);
+    formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("category_id", data.category_id);
-    console.log(data);
+    formData.append(
+      "production_time_per_minutes",
+      data.production_time_per_minutes
+    );
+    formData.append("reference_url", data.reference_url);
+    formData.append("memo", data.memo);
 
-
-    if(image){
-      formData.append("image_url",image)
+    if (image) {
+      formData.append("image_url", image);
     }
+    // キャプチャ画像をフォームデータに追加
+    if (capturedImage) {
+       console.log(
+         "Captured image received in parent component:",
+         capturedImage
+       );
+      formData.append("image_url", capturedImage);
+    }
+
+    console.log(image);
+
     try {
-      const responce = await axios.post(
+      const response = await axios.post(
         `http://localhost/api/users/${user_id}/posts/new`,
         formData,
         {
@@ -41,8 +76,15 @@ const NewPost = () => {
           },
         }
       );
-
-      console.log(responce.status);
+      if (response.status === 200) {
+        // フォーム送信成功時の処理
+        console.log("Post created successfully");
+      } else {
+        // エラーハンドリング
+        console.error("Failed to create post");
+      }
+      console.log(formData);
+      console.log(response.status);
     } catch (error) {
       console.log(error);
     }
@@ -53,14 +95,19 @@ const NewPost = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="image">画像</label>
-          <input type="file" accept="image/*" onChange={onImageChange}/>
+          <input type="file" accept="image/*" onChange={onImageChange} />
           {image && (
             <img
-            src={URL.createObjectURL(image)}
-            alt="作品画像"
-            style={{ width:"200px",height:"200px" }}
+              src={URL.createObjectURL(image)}
+              alt="作品画像"
+              style={{ width: "200px", height: "200px" }}
             />
           )}
+        </div>
+        <div>
+          <label htmlFor="camera">カメラ</label>
+          <Camera onCapture={(imageSrc) => setCapturedImage(imageSrc)} />
+          {/* {displayCapturedImage()} */}
         </div>
         <div>
           <label htmlFor="title">タイトル</label>
@@ -80,12 +127,42 @@ const NewPost = () => {
           </select>
         </div>
         <div>
+          <label htmlFor="production_time_per_minutes">
+            制作時間（分単位）
+          </label>
+          <input
+            type="number" // 数値を入力するためのフィールド
+            id="production_time_per_minutes"
+            name="production_time_per_minutes"
+            {...register("production_time_per_minutes")}
+          />
+        </div>
+        <div>
           <label htmlFor="description">説明</label>
-
           <textarea
             name="description"
             id="description"
             {...register("description")}
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div>
+          <label htmlFor="reference_url">参考 URL</label>
+          <input
+            type="text"
+            id="reference_url"
+            name="reference_url"
+            {...register("reference_url")}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="memo">メモ</label>
+          <textarea
+            name="memo"
+            id="memo"
+            {...register("memo")}
             cols="30"
             rows="10"
           ></textarea>
