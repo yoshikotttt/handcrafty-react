@@ -43,14 +43,14 @@ const NewPost = () => {
     }
     // キャプチャ画像をフォームデータに追加
     if (capturedImage) {
-       console.log(
-         "Captured image received in parent component:",
-         capturedImage
-       );
+      console.log(
+        "Captured image received in parent component:",
+        capturedImage
+      );
       formData.append("image_url", capturedImage);
     }
 
-    console.log(image);
+    console.log("FormData being sent:", [...formData.entries()]); // ここで formData の中身をログ出力
 
     try {
       const response = await axios.post(

@@ -8,21 +8,26 @@ import EditButton from "../../components/common/EditButton";
 const SinglePost = () => {
   const { item_id } = useParams();
   //   console.log("itemidの結果", item_id);
-  const [data, setData] = useState(null);
+  const [itemData, setItemData] = useState(null);
    const loggedInUserId = Cookies.get("user_id");
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost/api/posts/${item_id}`)
-      .then((response) => {
-        const responseData = response.data;
-        setData(responseData);
-        console.log("res", responseData);
-      })
-      .catch((error) => {
-        console.error("データの取得に失敗しました", error);
-      });
-  }, [item_id]);
+ useEffect(() => {
+   const fetchData = async () => {
+     try {
+       const response = await axios.get(
+         `http://localhost/api/posts/${item_id}`
+       );
+       const responseData = response.data;
+       setItemData(responseData);
+       console.log("res", responseData);
+     } catch (error) {
+       console.error("データの取得に失敗しました", error);
+     }
+   };
+
+   fetchData();
+ }, [item_id]);
+
 
   const formatCreatedAt = (createdAt) => {
     const date = new Date(createdAt);
@@ -38,35 +43,39 @@ const SinglePost = () => {
 
   return (
     <>
-      {data ? (
+      {itemData ? (
         <>
-          <h2>{data.title}</h2>
-          {data.image_url && (
+          <h2>{itemData.title}</h2>
+          {itemData.image_url && (
             <img
-              src={`http://localhost/${data.image_url}`}
+              src={`http://localhost/${itemData.image_url}`}
               alt="アイテム画像"
               style={{ width: "200px", height: "200px" }}
             />
           )}
           <p>カテゴリー：</p>
-          {data.category_id && <p>{data.category_id}</p>}
-          {data.description && <p>{data.description}</p>}
-          {data.reference_url && (
+          {itemData.category_id && <p>{itemData.category_id}</p>}
+          {itemData.description && <p>{itemData.description}</p>}
+          {itemData.reference_url && (
             <p>
               <a
-                href={data.reference_url}
+                href={itemData.reference_url}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {data.reference_url}
+                {itemData.reference_url}
               </a>
             </p>
           )}
-          {data.created_at && (
-            <p>投稿日時: {formatCreatedAt(data.created_at)}</p>
+          {itemData.created_at && (
+            <p>投稿日時: {formatCreatedAt(itemData.created_at)}</p>
           )}
-          {data.user_id == loggedInUserId && <EditButton itemId={item_id} />}
-          {data.user_id == loggedInUserId && <DeleteButton itemId={item_id} />}
+          {itemData.user_id == loggedInUserId && (
+            <EditButton itemId={item_id} />
+          )}
+          {itemData.user_id == loggedInUserId && (
+            <DeleteButton itemId={item_id} />
+          )}
         </>
       ) : (
         <p>データをロード中...</p>
