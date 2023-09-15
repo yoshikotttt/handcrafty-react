@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DeleteButton from "../../components/common/DeleteButton";
 import Cookies from "js-cookie";
+import EditButton from "../../components/common/EditButton";
 
 const SinglePost = () => {
   const { item_id } = useParams();
@@ -64,7 +65,8 @@ const SinglePost = () => {
           {data.created_at && (
             <p>投稿日時: {formatCreatedAt(data.created_at)}</p>
           )}
-          {data.user_id == loggedInUserId && <DeleteButton />}
+          {data.user_id == loggedInUserId && <EditButton itemId={item_id} />}
+          {data.user_id == loggedInUserId && <DeleteButton itemId={item_id} />}
         </>
       ) : (
         <p>データをロード中...</p>
