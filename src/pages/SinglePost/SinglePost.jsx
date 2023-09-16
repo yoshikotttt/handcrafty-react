@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import DeleteButton from "../../components/common/DeleteButton";
+import DeleteButton from "../../components/common/DeleteButton/DeleteButton";
 import Cookies from "js-cookie";
-import EditButton from "../../components/common/EditButton";
+import EditButton from "../../components/common/EditButton/EditButton";
 
 const SinglePost = () => {
   const { item_id } = useParams();

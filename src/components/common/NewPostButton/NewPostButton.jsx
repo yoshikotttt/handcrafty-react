@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const NewPostButton = () => {
    const [user_id, setUserId] = useState("");
@@ -18,10 +19,28 @@ const NewPostButton = () => {
      navigate(`/users/${user_id}/posts/new`);
    };
 
+   const buttonStyle = {
+     width: "50px",
+     height: "50px",
+     borderRadius: "50%",
+     backgroundColor: "#e8accb",
+     color: "white",
+     border: "none",
+     position: "absolute",
+     right: "30px",
+     bottom: "10px",
+     cursor: "pointer",
+     textAlign: "center",
+     display: "flex",
+     justifyContent: "center", 
+     alignItems: "center", 
+   };
+
    return (
      <>
-       <div>Posts</div>
-       <button onClick={handleNewPostClick}>新規投稿</button>
+       <button style={buttonStyle} onClick={handleNewPostClick}>
+         <AiOutlinePlus size="1.5rem" />
+       </button>
        {/* <button onClick={() => navigate(`/users/${user_id}/posts/new`)}>
         新規登録
       </button> */}

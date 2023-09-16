@@ -14,6 +14,7 @@ import Posts from "./pages/Posts/Posts";
 import Cookies from "js-cookie";
 import SinglePost from "./pages/SinglePost/SinglePost";
 import Edit from "./pages/Edit/Edit";
+import Footer from "./components/footer/Footer";
 
 function App() {
   
@@ -34,8 +35,12 @@ function App() {
           ></Route>
           <Route path="/posts" element={<Posts />}></Route>
           <Route path="/posts/:item_id" element={<SinglePost />}></Route>
-          <Route path="users/:user_id/posts/:item_id/edit" element={<Edit />}></Route>
+          <Route
+            path="users/:user_id/posts/:item_id/edit"
+            element={<Edit />}
+          ></Route>
         </Routes>
+        <Footer />
       </Router>
     </>
   );
