@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 // import Cookies from 'js-cookie';
 // import { useNavigate } from "react-router-dom";
-import NewPostButton from '../../components/common/NewPostButton';
+import NewPostButton from '../../components/common/NewPostButton/NewPostButton';
 import axios from 'axios';
 import "./Posts.css"
 import { Link } from 'react-router-dom';

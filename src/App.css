@@ -51,7 +51,7 @@ p {
   font-size: 12px;
 }
 
-/* 送信ボタン */
+/* 送信ボタン
 button {
   width: 100%;
   padding: 8px;
@@ -68,4 +68,4 @@ button {
 
 button:hover {
   background-color: #2779bd;
-}
+} */

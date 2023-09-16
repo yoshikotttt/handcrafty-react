@@ -3,14 +3,13 @@ import "../../App.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Camera from "../../components/common/Camera";
+import Camera from "../../components/common/Camera/Camera";
 import { useParams } from "react-router-dom";
 
 const Edit = () => {
   const [itemData, setItemData] = useState(null);
   const { user_id, item_id } = useParams();
   const token = Cookies.get("token");
-
 
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(null);
@@ -43,8 +42,7 @@ const Edit = () => {
         setValue("description", response.data.description);
         setValue("reference_url", response.data.reference_url);
         setValue("memo", response.data.memo);
-        setImageURL("image_url",response.data.image_url);
-
+        setImageURL("image_url", response.data.image_url);
 
         console.log("res", responseData);
       } catch (error) {

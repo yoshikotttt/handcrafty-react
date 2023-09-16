@@ -3,7 +3,7 @@ import "../../App.css";
 import { set, useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Camera from "../../components/common/Camera";
+import Camera from "../../components/common/Camera/Camera";
 // import { useNavigate } from "react-router-dom";
 
 const NewPost = () => {
@@ -15,7 +15,6 @@ const NewPost = () => {
 
   const [image, setImage] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
-
 
   const onImageChange = (event) => {
     const file = event.target.files[0];
