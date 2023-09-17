@@ -11,12 +11,12 @@ const SinglePost = () => {
   const [itemData, setItemData] = useState(null);
    const loggedInUserId = Cookies.get("user_id");
 
+   const baseURL = import.meta.env.VITE_API_BASE_URL;
+
  useEffect(() => {
    const fetchData = async () => {
      try {
-       const response = await axios.get(
-         `http://localhost/api/posts/${item_id}`
-       );
+       const response = await axios.get(`${baseURL}/api/posts/${item_id}`);
        const responseData = response.data;
        setItemData(responseData);
        console.log("res", responseData);
@@ -48,7 +48,7 @@ const SinglePost = () => {
           <h2>{itemData.title}</h2>
           {itemData.image_url && (
             <img
-              src={`http://localhost/${itemData.image_url}`}
+              src={`${baseURL}/${itemData.image_url}`}
               alt="アイテム画像"
               style={{ width: "200px", height: "200px" }}
             />

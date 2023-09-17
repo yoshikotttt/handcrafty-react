@@ -13,6 +13,8 @@ const NewPost = () => {
 
   const token = Cookies.get("token");
 
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
   const [image, setImage] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -54,7 +56,7 @@ const NewPost = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost/api/users/posts/new`,
+        `${baseURL}/api/users/posts/new`,
         formData,
         {
           headers: {

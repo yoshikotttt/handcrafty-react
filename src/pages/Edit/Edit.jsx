@@ -15,6 +15,8 @@ const Edit = () => {
   const [imageURL, setImageURL] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
 
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
   const { register, handleSubmit, setValue } = useForm({
     mode: "onChange",
   });
@@ -22,14 +24,11 @@ const Edit = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost/api/posts/${item_id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${baseURL}/api/posts/${item_id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const responseData = response.data;
         setItemData(responseData);
@@ -90,7 +89,7 @@ const Edit = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost/api/users/posts/${item_id}/edit`,
+        `${baseURL}/api/users/posts/${item_id}/edit`,
         formData,
         {
           headers: {
@@ -129,7 +128,7 @@ const Edit = () => {
           ) : (
             imageURL && (
               <img
-                src={`http://localhost/${itemData.image_url}`}
+                src={`${baseURL}/${itemData.image_url}`}
                 alt="アイテム画像"
                 style={{ width: "200px", height: "200px" }}
               />

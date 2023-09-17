@@ -6,19 +6,18 @@ const MyPage = () => {
   const [items, setItems] = useState([]);
 
   const token = Cookies.get("token");
+
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost/api/users/me`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${baseURL}/api/users/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setItems(response.data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);

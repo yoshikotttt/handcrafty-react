@@ -17,11 +17,13 @@ const Login = () => {
 
 const navigate = useNavigate();
 
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post("http://localhost/api/login", data)
+      .post(`${baseURL}/api/login`, data)
       .then((response) => {
         console.log(response.data);
         // サーバーからのレスポンスデータからトークンを抽出
