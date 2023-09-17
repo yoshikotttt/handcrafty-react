@@ -1,19 +1,17 @@
 // import React from "react";
 import "../../App.css";
 import Logout from "../../components/other/Logout";
-import ProtectedRouteTest from "../../components/other/ProtectedRouteTest";
-
 
 const Home = () => {
+  const comment = import.meta.env.VITE_API_BASE_COMMENT;
   return (
     <>
       <div>Home</div>
-      <ProtectedRouteTest />
-      <br />
-      <br />
-      <Logout/>
+      <div>{comment}</div>
 
-      
+      <br />
+      <br />
+      <Logout />
     </>
   );
 };
