@@ -4,14 +4,15 @@ import { set, useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const NewPost = () => {
   const { register, handleSubmit } = useForm({ mode: "onChange" });
+  const navigate = useNavigate();
 
   const token = Cookies.get("token");
-  const user_id = Cookies.get("user_id");
-  // console.log(user_id);
+
 
   const [image, setImage] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -53,7 +54,7 @@ const NewPost = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost/api/users/${user_id}/posts/new`,
+        `http://localhost/api/users/posts/new`,
         formData,
         {
           headers: {
@@ -65,6 +66,7 @@ const NewPost = () => {
       if (response.status === 200) {
         // フォーム送信成功時の処理
         console.log("Post created successfully");
+        navigate('/posts');
       } else {
         // エラーハンドリング
         console.error("Failed to create post");

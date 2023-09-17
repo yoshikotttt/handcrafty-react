@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 
 const Edit = () => {
   const [itemData, setItemData] = useState(null);
-  const { user_id, item_id } = useParams();
+  const { item_id } = useParams();
   const token = Cookies.get("token");
 
   const [image, setImage] = useState(null);
@@ -90,7 +90,7 @@ const Edit = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost/api/users/${user_id}/posts/${item_id}/edit`,
+        `http://localhost/api/users/posts/${item_id}/edit`,
         formData,
         {
           headers: {

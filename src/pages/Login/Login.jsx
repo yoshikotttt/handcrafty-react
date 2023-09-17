@@ -67,7 +67,7 @@ const navigate = useNavigate();
         />
         <p>{errors.password ? errors.password.message : null}</p>
 
-        <button type="submit">送信</button>
+        <button type="submit">ログイン</button>
       </form>
 
       <Logout/>
