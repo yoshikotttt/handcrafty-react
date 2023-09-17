@@ -12,6 +12,8 @@ const Register = () => {
     watch,
   } = useForm({ mode: "onChange" });
 
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
   const password = watch("password");
 
   const navigate = useNavigate(); // useNavigateを初期化
@@ -19,7 +21,7 @@ const Register = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post("http://localhost/api/register", data)
+      .post(`${baseURL}/api/register`, data)
       .then(function (response) {
         console.log(response.status);
         if (response.status === 204) {

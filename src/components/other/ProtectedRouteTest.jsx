@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 const ProtectedRouteTest = () => {
   const [message, setMessage] = useState("");
 
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     const token = Cookies.get("token");
 
     if (token) {
       axios
-        .get("http://localhost/api/test", {
+        .get(`${baseURL}/api/test`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

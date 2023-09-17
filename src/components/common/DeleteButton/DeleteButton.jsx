@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const DeleteButton = ({ itemId }) => {
     console.log(itemId);
+
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
   const handleDelete = () => {
     if (window.confirm("この投稿を削除してもよろしいですか？")) {
@@ -17,14 +19,14 @@ const DeleteButton = ({ itemId }) => {
             return;
         }
       axios
-        .delete(`http://localhost/api/posts/${itemId}`,{
-            headers:{
-                Authorization:`Bearer ${token}`,
-            },
+        .delete(`${baseURL}/api/posts/${itemId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then(() => {
           alert("削除しました");
-         navigate("/posts");
+          navigate("/posts");
         })
         .catch((error) => {
           console.error("削除に失敗しました", error);

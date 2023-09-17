@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
 
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
+
   const navigate = useNavigate();
   
   const handleLogout = () => {
@@ -19,7 +21,7 @@ const Logout = () => {
       };
 
       axios
-        .post("http://localhost/api/logout", null, { headers })
+        .post(`${baseURL}/api/logout`, null, { headers })
         .then((response) => {
           Cookies.remove("token");
           console.log("ログアウトしました");

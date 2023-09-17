@@ -11,11 +11,13 @@ import { Link } from 'react-router-dom';
 const Posts = () => {
     const[items, setItems] = useState([]);
 
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
     useEffect(() => {
 
       axios
-        .get("http://localhost/api/posts")
+        .get(`${baseURL}/api/posts`)
         .then((response) => {
           setItems(response.data);
         })
@@ -37,15 +39,15 @@ const Posts = () => {
               <li key={item.id}>
                 {/* {item.title} */}
                 <Link to={`/posts/${item.id}`}>
-                {item.image_url && (
-                  <img
-                    src={`http://localhost/${item.image_url}`}
-                    alt="アイテム画像"
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                )}
+                  {item.image_url && (
+                    <img
+                      src={`${baseURL}/${item.image_url}`}
+                      alt="アイテム画像"
+                      style={{ width: "100px", height: "100px" }}
+                    />
+                  )}
                 </Link>
-                </li> 
+              </li>
             ))}
         </ul>
       </div>
