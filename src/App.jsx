@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+
   // useParams,
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -15,12 +16,10 @@ import Cookies from "js-cookie";
 import SinglePost from "./pages/SinglePost/SinglePost";
 import Edit from "./pages/Edit/Edit";
 import Footer from "./components/footer/Footer";
+import MyPage from "./pages/MyPage/MyPage";
 
 function App() {
-  
-  const user_id = Cookies.get("user_id");
-  // const { item_id } = useParams();
-  // console.log("itemidの結果", item_id);
+   
 
   return (
     <>
@@ -30,13 +29,14 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route
-            path={`/users/${user_id}/posts/new`}
+            path={`/users/posts/new`}
             element={<NewPost />}
           ></Route>
           <Route path="/posts" element={<Posts />}></Route>
           <Route path="/posts/:item_id" element={<SinglePost />}></Route>
+          <Route path="/users/:user_id" element={<MyPage/>}></Route>
           <Route
-            path="users/:user_id/posts/:item_id/edit"
+            path="users/posts/:item_id/edit"
             element={<Edit />}
           ></Route>
         </Routes>

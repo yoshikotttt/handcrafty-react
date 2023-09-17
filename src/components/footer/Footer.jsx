@@ -1,29 +1,51 @@
-// import React from "react";
+// import { useEffect, useState } from "react";
 import { AiOutlineHome, AiOutlinePushpin } from "react-icons/ai";
 import { BiSolidFace } from "react-icons/bi";
 import { LuSettings } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
+
 
 const Footer = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+ 
 
-    const handleIconClick = (path) => {
-        navigate(path);
-    };
 
-    const iconsStyles = {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
+  if (location.pathname === "/login" || location.pathname === "/register") {
+    return null;
+  }
+  
+  const handleIconClick = (path) => {
+    navigate(path);
+  };
+
+  const iconsStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  };
+
+    const individualIconStyle = {
+      fontSize: "2rem", // `size="2rem"` の代わり
+      cursor: "pointer",
     };
 
   return (
     <div style={iconsStyles}>
-      <AiOutlineHome className="icon" size="2rem" onClick={() => handleIconClick("/posts")}/>
-      <BiSolidFace className="icon" size="2rem" />
-      <AiOutlinePushpin className="icon" size="2rem" />
-      <LuSettings className="icon" size="2rem" />
+      <AiOutlineHome
+        style={individualIconStyle}
+        size="2rem"
+        onClick={() => handleIconClick("/posts")}
+      />
+      <BiSolidFace
+        style={individualIconStyle}
+        size="2rem"
+        onClick={() => handleIconClick(`/users/me`)}
+      />
+      <AiOutlinePushpin style={individualIconStyle} size="2rem" />
+      <LuSettings style={individualIconStyle} size="2rem" />
     </div>
   );
 };
