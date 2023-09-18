@@ -32,7 +32,9 @@ const Camera = ({ onCapture }) => {
   const [isCapturing, setIsCapturing] = useState(true);
   const [capturedImage, setCapturedImage] = useState(null); // キャプチャ画像を保存するステート
 
-  const capture = () => {
+  const capture = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
     if (isCapturing) {
       setIsCapturing(false);
       const imageSrc = webcamRef.current.getScreenshot();
@@ -62,8 +64,8 @@ const Camera = ({ onCapture }) => {
   //  videoConstraints={(isMobile) ? {facingMode:{exact:"environment"}} : {facingMode:"user"}}
 
   const videoStyle = {
-    width: "120px", // 幅を変更する値に設定
-    height: "100px", // 高さを自動調整する場合
+    width: "250px", // 幅を変更する値に設定
+    height: "250px", // 高さを自動調整する場合
   };
   return (
     <div className="camera-container">
@@ -85,33 +87,14 @@ const Camera = ({ onCapture }) => {
           <img
             src={capturedImage}
             alt="キャプチャされた画像"
-            style={{ width: "120px", height: "100px" }}
+            style={{ width: "250px", height: "250px" }}
           />
-          <button onClick={capture} className="pink-button">
+          <button type="button" onClick={capture} className="pink-button">
             再撮影
           </button>
         </>
       )}
     </div>
-    // <div className="camera-container">
-    //   <Webcam
-    //     audio={false}
-    //     ref={webcamRef}
-    //     screenshotFormat="image/jpeg"
-    //     style={videoStyle}
-    //     videoConstraints={videoConstraints}
-    //   />
-    //   <button onClick={capture} className="pink-button">
-    //     {isCapturing ? "停止" : "再撮影"}
-    //   </button>
-    //   {capturedImage && (
-    //     <img
-    //       src={capturedImage}
-    //       alt="キャプチャされた画像"
-    //       style={{ width: "200px", height: "200px" }}
-    //     />
-    //   )}
-    // </div>
   );
 };
 
