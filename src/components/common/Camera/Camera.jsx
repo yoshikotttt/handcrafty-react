@@ -67,24 +67,51 @@ const Camera = ({ onCapture }) => {
   };
   return (
     <div className="camera-container">
-      <Webcam
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        style={videoStyle}
-        videoConstraints={videoConstraints}
-      />
-      <button onClick={capture} className="pink-button">
-        {isCapturing ? "停止" : "再撮影"}
-      </button>
-      {capturedImage && (
-        <img
-          src={capturedImage}
-          alt="キャプチャされた画像"
-          style={{ width: "200px", height: "200px" }}
-        />
+      {isCapturing ? (
+        <>
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            style={videoStyle}
+            videoConstraints={videoConstraints}
+          />
+          <button onClick={capture} className="pink-button">
+            停止
+          </button>
+        </>
+      ) : (
+        <>
+          <img
+            src={capturedImage}
+            alt="キャプチャされた画像"
+            style={{ width: "120px", height: "100px" }}
+          />
+          <button onClick={capture} className="pink-button">
+            再撮影
+          </button>
+        </>
       )}
     </div>
+    // <div className="camera-container">
+    //   <Webcam
+    //     audio={false}
+    //     ref={webcamRef}
+    //     screenshotFormat="image/jpeg"
+    //     style={videoStyle}
+    //     videoConstraints={videoConstraints}
+    //   />
+    //   <button onClick={capture} className="pink-button">
+    //     {isCapturing ? "停止" : "再撮影"}
+    //   </button>
+    //   {capturedImage && (
+    //     <img
+    //       src={capturedImage}
+    //       alt="キャプチャされた画像"
+    //       style={{ width: "200px", height: "200px" }}
+    //     />
+    //   )}
+    // </div>
   );
 };
 

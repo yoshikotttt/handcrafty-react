@@ -45,6 +45,7 @@ const SinglePost = () => {
     <>
       {itemData ? (
         <>
+          <div>投稿者 {itemData.user.name}</div>
           <h2>{itemData.title}</h2>
           {itemData.image_url && (
             <img
@@ -54,7 +55,7 @@ const SinglePost = () => {
             />
           )}
           <p>カテゴリー：</p>
-          {itemData.category_id && <p>{itemData.category_id}</p>}
+          {itemData.category_id && <p>{itemData.category.name}</p>}
           {itemData.description && <p>{itemData.description}</p>}
           {itemData.reference_url && (
             <p>
