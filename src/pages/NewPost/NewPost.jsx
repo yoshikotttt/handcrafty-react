@@ -8,7 +8,11 @@ import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const NewPost = () => {
-  const { register, handleSubmit } = useForm({ mode: "onChange" });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
   const navigate = useNavigate();
 
   const token = Cookies.get("token");
@@ -102,19 +106,32 @@ const NewPost = () => {
         <div>
           <label htmlFor="title">タイトル</label>
           {/* <input id="title" type="text" name="title"/> */}
-          <input type="text" id="title" name="title" {...register("title")} />
+          <input
+            type="text"
+            id="title"
+            name="title"
+            {...register("title", { required: "タイトルは必須です" })}
+          />
+          <p>{errors.title ? errors.title.message : null}</p>
         </div>
         <div>
           <label htmlFor="category">カテゴリー</label>
           <select
             id="category_id"
             name="category_id"
-            {...register("category_id")}
+            {...register("category_id", {
+              required: "カテゴリーは必須です",
+              message: "カテゴリーを選択して下さい",
+            })}
           >
-            <option value="1">カテゴリー1</option>
-            <option value="2">カテゴリー2</option>
-            <option value="3">カテゴリー3</option>
+            <option value="">以下から選択してください</option>
+            <option value="1">ソーイング</option>
+            <option value="2">編み物</option>
+            <option value="3">刺繍</option>
+            <option value="4">アクセサリー</option>
+            <option value="5">レジン</option>
           </select>
+          <p>{errors.category_id ? errors.category_id.message : null}</p>
         </div>
         <div>
           <label htmlFor="production_time_per_minutes">
@@ -124,18 +141,26 @@ const NewPost = () => {
             type="number" // 数値を入力するためのフィールド
             id="production_time_per_minutes"
             name="production_time_per_minutes"
-            {...register("production_time_per_minutes")}
+            {...register("production_time_per_minutes", {
+              required: "制作時間は必須です",
+            })}
           />
+          <p>
+            {errors.production_time_per_minutes
+              ? errors.production_time_per_minutes.message
+              : null}
+          </p>
         </div>
         <div>
           <label htmlFor="description">説明</label>
           <textarea
             name="description"
             id="description"
-            {...register("description")}
+            {...register("description", { required: "説明文は必須です" })}
             cols="30"
             rows="10"
           ></textarea>
+          <p>{errors.description ? errors.description.message : null}</p>
         </div>
         <div>
           <label htmlFor="reference_url">参考 URL</label>
