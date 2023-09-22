@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
-import "./Camera.css";
+import "./Camera.module.scss";
 
 // Base64 エンコードされたデータを Blob オブジェクトに変換
 const base64ToBlob = (base64data, contentType) => {
