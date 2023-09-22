@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 // import { useNavigate } from "react-router-dom";
 import NewPostButton from '../../components/common/NewPostButton/NewPostButton';
 import axios from 'axios';
-import "./Posts.css"
+import "./Posts.module.scss"
 import { Link } from 'react-router-dom';
 
 

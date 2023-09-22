@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./NewPost.css";
+import "./NewPost.module.scss";
 import { set, useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";

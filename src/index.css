@@ -12,6 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --breakpoint-sm: 768px;
+  --breakpoint-lg: 1280px;
 }
 
 a {
@@ -28,7 +31,9 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 140vh;
+  min-height: 100vh;
+  padding: 20px; /* コンテナ内のコンテンツがウィンドウに対して内部余白を持つ */
+  overflow-y: auto; /* コンテンツがページよりも大きい場合、垂直方向のスクロールバーを表示 */
 }
 
 h1 {
