@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import {} from "react";
-import styles from "../Login.module.scss";
+// import styles from "../Login.module.scss";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
