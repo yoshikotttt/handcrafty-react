@@ -8,13 +8,17 @@ import styles from "./SinglePost.module.scss";
 import { Tag } from "antd";
 
 const SinglePost = () => {
+
+  // URLからitem_idを取得
   const { item_id } = useParams();
-  //   console.log("itemidの結果", item_id);
+  // 取得したデータの保持
   const [itemData, setItemData] = useState(null);
+  // CookieからログインユーザーのIDを取得
   const loggedInUserId = Cookies.get("user_id");
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
+  //マウント時、指定したitem_idをもとにAPIから投稿データを取得してitemDataにセット
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,6 +34,7 @@ const SinglePost = () => {
     fetchData();
   }, [item_id]);
 
+  // 与えられた日付を整形して表示
   const formatCreatedAt = (createdAt) => {
     const date = new Date(createdAt);
     const year = date.getFullYear();
@@ -49,7 +54,6 @@ const SinglePost = () => {
     刺繍: "green",
     アクセサリー: "blue",
     レジン: "volcano",
-    // 他のカテゴリーに対する色も追加
   };
 
   // カテゴリー名に対応する色を取得するヘルパー関数
@@ -57,6 +61,7 @@ const SinglePost = () => {
     return categoryColorMap[categoryName] || "defaultColor"; // マッピングがない場合はデフォルトの色を指定
   };
 
+  // 与えられたテキストが指定の長さ以上なら、省略して"..."を追加
   const truncatedText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -64,6 +69,7 @@ const SinglePost = () => {
     return text.slice(0, maxLength) + "...";
   };
 
+  // itemDataが存在する場合、取得した投稿データをもとに内容を表示
   return (
     <>
       {itemData ? (
@@ -78,7 +84,6 @@ const SinglePost = () => {
               className={styles["single-post__image"]}
             />
           )}
-
           <div className={styles["single-post__category-container"]}>
             <p className={styles["single-post__category"]}></p>
             {itemData.created_at && (
@@ -112,7 +117,7 @@ const SinglePost = () => {
               </a>
             </p>
           )}
-
+          {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
           {itemData.user_id == loggedInUserId && (
             <div className={styles["button-container"]}>
               <EditButton itemId={item_id} />
@@ -126,4 +131,5 @@ const SinglePost = () => {
     </>
   );
 };
+
 export default SinglePost;

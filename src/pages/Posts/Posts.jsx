@@ -1,39 +1,35 @@
-import {useEffect, useState} from 'react'
-// import Cookies from 'js-cookie';
-// import { useNavigate } from "react-router-dom";
-import NewPostButton from '../../components/common/NewPostButton/NewPostButton';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import NewPostButton from "../../components/common/NewPostButton/NewPostButton";
+import axios from "axios";
 import styles from "./Posts.module.scss";
-import { Link } from 'react-router-dom';
-import CategoryLink from '../../components/common/CategoryLink/CategoryLink';
-
-
-
+import { Link } from "react-router-dom";
+import CategoryLink from "../../components/common/CategoryLink/CategoryLink";
 
 const Posts = () => {
-    const[items, setItems] = useState([]);
+  // 投稿データを管理するためのステート
+  const [items, setItems] = useState([]);
 
-    const baseURL = import.meta.env.VITE_API_BASE_URL;
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
+  useEffect(() => {
+    // マウント時にAPIから投稿データを取得する
+    axios
+      .get(`${baseURL}/api/posts`)
+      .then((response) => {
+        //データ取得できたら、stateを更新
+        setItems(response.data);
+      })
+      .catch((error) => {
+        console.error("データの取得に失敗しました", error);
+      });
+  }, []); // このeffectはマウント時にのみ実行されるので、空配列を持たせる
 
-    useEffect(() => {
-
-      axios
-        .get(`${baseURL}/api/posts`)
-        .then((response) => {
-          setItems(response.data);
-        })
-        .catch((error) => {
-          console.error("データの取得に失敗しました", error);
-        });
-    },[]);
-
-    // console.log(items);
 
   return (
     <>
+      {/* IDの降順にソートしてからリストとして表示 */}
       <div className={styles["post-list"]}>
-        <CategoryLink/>
+        <CategoryLink />
         <h2 className={styles["post-list__title"]}>posts</h2>
         <ul className={styles["post-list__items"]}>
           {items
@@ -50,7 +46,7 @@ const Posts = () => {
                       src={`${baseURL}/${item.image_url}`}
                       alt="アイテム画像"
                       className={styles["post-list__image"]}
-                      style={{ width: "100px", height: "100px" }} // If needed, you can move these styles to the CSS module file
+                      style={{ width: "100px", height: "100px" }} 
                     />
                   )}
                 </Link>
@@ -61,7 +57,6 @@ const Posts = () => {
       <NewPostButton />
     </>
   );
-
 };
 
-export default Posts
+export default Posts;

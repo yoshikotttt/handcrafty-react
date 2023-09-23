@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { BiSolidEditAlt } from "react-icons/bi";
 
+// eslint-disable-next-line react/prop-types
 const EditButton = ({itemId}) => {
       
       const navigate = useNavigate(); // useNavigate フックを呼び出す
