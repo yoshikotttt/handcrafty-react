@@ -51,16 +51,24 @@ const Footer = () => {
     <div style={{ ...iconsStyles, ...footerStyles }}>
       <AiOutlineHome
         style={individualIconStyle}
-        size="2rem"
+        size="1.5rem"
         onClick={() => handleIconClick("/posts")}
       />
       <BiSolidFace
         style={individualIconStyle}
-        size="2rem"
+        size="1.5rem"
         onClick={() => handleIconClick(`/users/me`)}
       />
-      <AiOutlinePushpin style={individualIconStyle} size="2rem" />
-      <LuSettings style={individualIconStyle} size="2rem" />
+      <AiOutlinePushpin
+        style={individualIconStyle}
+        size="1.5rem"
+        onClick={() => handleIconClick("/favorites")}
+      />
+      <LuSettings
+        style={individualIconStyle}
+        size="1.5rem"
+        onClick={() => handleIconClick("/settings")}
+      />
     </div>
   );
 };

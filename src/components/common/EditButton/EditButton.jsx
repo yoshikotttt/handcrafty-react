@@ -1,5 +1,6 @@
 // import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BiSolidEditAlt } from "react-icons/bi";
 
 const EditButton = ({itemId}) => {
       
@@ -12,7 +13,7 @@ const EditButton = ({itemId}) => {
       };
   return (
     <>
-      <button onClick={handleEditClick}>EditButton</button>
+      <BiSolidEditAlt onClick={handleEditClick} size="1.5rem" color="#e8aaa3" />
     </>
   );
 };

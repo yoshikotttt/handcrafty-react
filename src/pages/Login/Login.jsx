@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import {} from "react";
-import "../../App.css";
+import styles from "../../App.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";

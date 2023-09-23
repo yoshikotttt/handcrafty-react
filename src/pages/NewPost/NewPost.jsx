@@ -1,11 +1,12 @@
 import { useState } from "react";
-import "./NewPost.module.scss";
-import { set, useForm } from "react-hook-form";
+import styles from "./NewPost.module.scss";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
 import { useNavigate } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+
+
 
 const NewPost = () => {
   const {
@@ -101,33 +102,37 @@ const NewPost = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         {isCameraVisible ? (
-          <div>
-            <label htmlFor="camera">カメラ</label>
+          <div className={styles.form__field}>
+            <label htmlFor="camera" className={styles.form__label}>
+          
+            </label>
             <Camera onCapture={onCapture} />
             <button
               type="button"
-              className="lightButton"
+              className={`${styles.form__button} ${styles["form__button--light"]}`}
               onClick={toggleCameraVisibility}
             >
               または画像を選択
             </button>
           </div>
         ) : (
-          <div>
-            <label htmlFor="image">画像をアップロード</label>
+          <div className={styles.form__field}>
+            <label htmlFor="image" className={styles.form__label}>
+              画像をアップロード
+            </label>
             <input type="file" accept="image/*" onChange={onImageChange} />
             {image && (
               <img
                 src={URL.createObjectURL(image)}
                 alt="作品画像"
-                style={{ width: "200px", height: "200px" }}
+                className={styles.form__image}
               />
             )}
             <button
               type="button"
-              className="lightButton"
+              className={`${styles.form__button} ${styles["form__button--light"]}`}
               onClick={toggleCameraVisibility}
             >
               カメラを開く
@@ -135,44 +140,26 @@ const NewPost = () => {
           </div>
         )}
 
-        {/* {showFileInput ? (
-          <div>
-            <label htmlFor="image">画像をアップロード</label>
-            <input type="file" accept="image/*" onChange={onImageChange} />
-            {image && (
-              <img
-                src={URL.createObjectURL(image)}
-                alt="作品画像"
-                style={{ width: "200px", height: "200px" }}
-              />
-            )}
-          </div>
-        ) : (
-          <div>
-            <label htmlFor="camera">画像を撮影する</label>
-            <Camera onCapture={(imageSrc) => setCapturedImage(imageSrc)} />
-            <button
-              type="button"
-              className="lightButton"
-              onClick={handleUploadButtonClick}
-            >
-              または画像を選択
-            </button>
-          </div>
-        )} */}
-        <div>
-          <label htmlFor="title">タイトル（必須）</label>
-          {/* <input id="title" type="text" name="title"/> */}
+        <div className={styles.form__field}>
+          <label htmlFor="title" className={styles.form__label}>
+            タイトル（必須）
+          </label>
           <input
             type="text"
             id="title"
             name="title"
             {...register("title", { required: "タイトルは必須です" })}
+            className={styles.form__input}
           />
-          <p>{errors.title ? errors.title.message : null}</p>
+          <p className={styles.form__error}>
+            {errors.title ? errors.title.message : null}
+          </p>
         </div>
-        <div>
-          <label htmlFor="category">カテゴリー（必須）</label>
+
+        <div className={styles.form__field}>
+          <label htmlFor="category_id" className={styles.form__label}>
+            カテゴリー（必須）
+          </label>
           <select
             id="category_id"
             name="category_id"
@@ -180,6 +167,7 @@ const NewPost = () => {
               required: "カテゴリーは必須です",
               message: "カテゴリーを選択して下さい",
             })}
+            className={styles.form__select}
           >
             <option value="">以下から選択してください（必須）</option>
             <option value="1">ソーイング</option>
@@ -188,63 +176,87 @@ const NewPost = () => {
             <option value="4">アクセサリー</option>
             <option value="5">レジン</option>
           </select>
-          <p>{errors.category_id ? errors.category_id.message : null}</p>
+          <p className={styles.form__error}>
+            {errors.category_id ? errors.category_id.message : null}
+          </p>
         </div>
-        <div>
-          <label htmlFor="production_time_per_minutes">
+
+        <div className={styles.form__field}>
+          <label
+            htmlFor="production_time_per_minutes"
+            className={styles.form__label}
+          >
             制作時間（分単位）（必須）
           </label>
           <input
-            type="number" // 数値を入力するためのフィールド
+            type="number"
             id="production_time_per_minutes"
             name="production_time_per_minutes"
             {...register("production_time_per_minutes", {
               required: "制作時間は必須です",
             })}
+            className={styles.form__input}
           />
-          <p>
+          <p className={styles.form__error}>
             {errors.production_time_per_minutes
               ? errors.production_time_per_minutes.message
               : null}
           </p>
         </div>
-        <div>
-          <label htmlFor="description">説明（必須）</label>
+
+        <div className={styles.form__field}>
+          <label htmlFor="description" className={styles.form__label}>
+            説明（必須）
+          </label>
           <textarea
             name="description"
             id="description"
             {...register("description", { required: "説明文は必須です" })}
             cols="30"
             rows="10"
+            className={styles.form__textarea}
           ></textarea>
-          <p>{errors.description ? errors.description.message : null}</p>
+          <p className={styles.form__error}>
+            {errors.description ? errors.description.message : null}
+          </p>
         </div>
-        <div>
-          <label htmlFor="reference_url">参考 URL</label>
+
+        <div className={styles.form__field}>
+          <label htmlFor="reference_url" className={styles.form__label}>
+            参考 URL
+          </label>
           <input
             type="text"
             id="reference_url"
             name="reference_url"
             {...register("reference_url")}
+            className={styles.form__input}
           />
         </div>
 
-        <div>
-          <label htmlFor="memo">メモ</label>
+        <div className={styles.form__field}>
+          <label htmlFor="memo" className={styles.form__label}>
+            メモ
+          </label>
           <textarea
             name="memo"
             id="memo"
             {...register("memo")}
             cols="30"
             rows="10"
+            className={styles.form__textarea}
           ></textarea>
         </div>
-        <div>
-          <button type="submit">送信</button>
+
+        <div className={styles.form__field}>
+          <button type="submit" className={styles["form__submit-button"]}>
+          投稿する
+          </button>
         </div>
       </form>
     </>
   );
+
 };
 
 export default NewPost;

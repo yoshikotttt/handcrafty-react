@@ -3,6 +3,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { RiDeleteBinLine } from "react-icons/ri";
 // import PropTypes from "prop-types";
 
 const DeleteButton = ({ itemId }) => {
@@ -36,7 +37,7 @@ const DeleteButton = ({ itemId }) => {
   };
   return (
     <>
-      <button onClick={handleDelete}>削除</button>
+      <RiDeleteBinLine onClick={handleDelete} size="1.5rem" color="#e8aaa3" />
     </>
   );
 };
