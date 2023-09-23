@@ -35,9 +35,19 @@ const Logout = () => {
     }
   };
 
+    const buttonStyles = {
+      
+      width: "9rem",
+      backgroundColor: "#e8aaa3",
+      padding: "0.5rem",
+      border: "none",
+      color: "white",
+      borderRadius: "1rem",
+    };
+
   return (
     <div>
-      <button type="button" onClick={handleLogout}>
+      <button type="button" onClick={handleLogout} style={buttonStyles}>
         ログアウト
       </button>
     </div>

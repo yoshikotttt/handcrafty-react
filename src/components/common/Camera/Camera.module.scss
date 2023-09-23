@@ -6,22 +6,22 @@
 }
 
 .camera-container__video {
-  width: "30%"; // 幅を変更する値に設定
-  height: "40rem"; // 高さを自動調整する場合
+  width: "30%"; 
+  height: "40rem"; 
 }
 .camera-container__image {
-   width: 30rem; // 幅を変更する値に設定
-  height: 20rem; // 高さを自動調整する場合
+   width: 30rem; 
+  height: 20rem; 
 }
 
 .camera-container__button {
-  background-color: #e8aaa3; /* ピンクの色を指定 */
-  color: #fff; /* ボタンのテキストの色を白に設定 */
-  border: none; /* ボーダーをなしに設定 */
-  padding: 10px 20px; /* パディングを指定してボタンのサイズを調整 */
-  border-radius: 10px; /* 角丸にするための設定 */
-  cursor: pointer; /* カーソルをポインターに変更してクリック可能であることを示す */
-  transition: background-color 0.3s ease; /* ホバー時の色変化をスムーズにするアニメーション */
+  background-color: #e8aaa3; 
+  color: #fff; 
+  border: none; 
+  padding: 10px 20px; 
+  border-radius: 10px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
   margin-bottom: 1rem;
 }
  

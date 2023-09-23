@@ -30,8 +30,8 @@ li {
 
 img {
   max-width: 100%;
-  height: auto; /* 高さをautoに変更 */
-  display: block; /* 追加 */
+  height: auto; 
+  display: block; 
 }
 
 
@@ -41,6 +41,7 @@ img {
 
 .post-list__title {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #70372c;
   /* ... */
 }
 
