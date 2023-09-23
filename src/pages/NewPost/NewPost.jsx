@@ -6,7 +6,8 @@ import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
 import { useNavigate } from "react-router-dom";
 
-
+// 新規投稿フォーム、入力されたデータは指定されたAPIエンドポイントに送信
+// ユーザーは画像をアップロードするか、カメラを使用して画像をキャプチャすることができます
 
 const NewPost = () => {
   const {
@@ -20,24 +21,24 @@ const NewPost = () => {
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
+  // アップロードされる画像のファイル情報
   const [image, setImage] = useState(null);
+  // カメラで撮影された画像の情報
   const [capturedImage, setCapturedImage] = useState(null);
-  const [showFileInput, setShowFileInput] = useState(false);
+  // カメラUIを表示するかどうかを制御するフラグ
   const [isCameraVisible, setIsCameraVisible] = useState(true);
 
+  // アップロードの画像
   const onImageChange = (event) => {
     const file = event.target.files[0];
     setImage(file);
   };
-
+  // カメラのキャプチャ画像
   const onCapture = (imageSrc) => {
     setCapturedImage(imageSrc);
   };
 
-  const handleUploadButtonClick = () => {
-    setShowFileInput(true);
-  };
-
+  //カメラコンポーネントに合わせて、他のデータの情報をどうするか
   const toggleCameraVisibility = () => {
     setIsCameraVisible(!isCameraVisible);
 
@@ -47,6 +48,7 @@ const NewPost = () => {
       setCapturedImage(null);
     }
   };
+
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -72,7 +74,7 @@ const NewPost = () => {
       formData.append("image_url", capturedImage);
     }
 
-    console.log("FormData being sent:", [...formData.entries()]); // ここで formData の中身をログ出力
+    // console.log("FormData being sent:", [...formData.entries()]); 
 
     try {
       const response = await axios.post(
@@ -105,9 +107,7 @@ const NewPost = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         {isCameraVisible ? (
           <div className={styles.form__field}>
-            <label htmlFor="camera" className={styles.form__label}>
-          
-            </label>
+            <label htmlFor="camera" className={styles.form__label}></label>
             <Camera onCapture={onCapture} />
             <button
               type="button"
@@ -250,13 +250,12 @@ const NewPost = () => {
 
         <div className={styles.form__field}>
           <button type="submit" className={styles["form__submit-button"]}>
-          投稿する
+            投稿する
           </button>
         </div>
       </form>
     </>
   );
-
 };
 
 export default NewPost;

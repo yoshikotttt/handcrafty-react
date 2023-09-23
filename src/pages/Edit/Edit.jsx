@@ -16,10 +16,8 @@ const Edit = () => {
   const [imageURL, setImageURL] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const [isCameraVisible, setIsCameraVisible] = useState(false);
+  //マウント時に表示されていた画像のURL
   const [originalImageURL, setOriginalImageURL] = useState(null);
-
-
-  
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -27,6 +25,7 @@ const Edit = () => {
     mode: "onChange",
   });
 
+  // マウント時に、指定されたitem_idに関連する情報を取得し、itemDataステートにセット
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,6 +36,8 @@ const Edit = () => {
         });
 
         const responseData = response.data;
+
+        // 取得したデータをフォームの各フィールドに初期値としてセット
         setItemData(responseData);
         setValue("title", response.data.title);
         setValue("category_id", response.data.category_id);
@@ -57,27 +58,25 @@ const Edit = () => {
     };
 
     fetchData();
-  }, []);
+  }, []); //マウント時に一回実行すれば良いので、空配列を持たせる
 
+  //アップロード画像をimageステートにセット
   const onImageChange = (event) => {
     const file = event.target.files[0];
     setImage(file);
   };
 
-  const onCapture = (imageSrc) => {
-    setCapturedImage(imageSrc);
-  };
-
-
+  //カメラの表示非表示と、それに合わせた各画像データの状態変更
   const toggleCameraVisibility = () => {
     setIsCameraVisible((prev) => !prev);
     if (isCameraVisible) {
-       setCapturedImage(null);
-       setImage(null);
-    setImageURL(originalImageURL);
+      setCapturedImage(null);
+      setImage(null);
+      setImageURL(originalImageURL);
     }
   };
-  
+
+  // フォームの入力データや選択/撮影された画像を含むFormDataオブジェクトを作成
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("title", data.title);
@@ -102,8 +101,10 @@ const Edit = () => {
       formData.append("image_url", capturedImage);
     }
 
-    console.log("FormData being sent:", [...formData.entries()]); // ここで formData の中身をログ出力
+    // console.log("FormData being sent:", [...formData.entries()]); // ここで formData の中身をログ出力
 
+    
+    // PUTメソッドを使用してデータを更新するため、ヘッダーにX-HTTP-Method-Overrideを追加
     try {
       const response = await axios.post(
         `${baseURL}/api/users/posts/${item_id}/edit`,
@@ -116,19 +117,16 @@ const Edit = () => {
           },
         }
       );
-      //   if (response.status === 200) {
-      //     // フォーム送信成功時の処理
-      //     console.log("Post ecreatd successfully");
-      //   } else {
-      //     // エラーハンドリング
-      //     console.error("Failed to create post");
-      //   }
-      //   console.log(formData);
       console.log(response.status);
     } catch (error) {
       console.log("Error response:", error.response.data);
     }
   };
+
+  // //カメラで撮影された画像をcapture
+  // const onCapture = (imageSrc) => {
+  //   setCapturedImage(imageSrc);
+  // };
 
   return (
     <>
@@ -137,12 +135,6 @@ const Edit = () => {
           {!isCameraVisible ? (
             capturedImage ? (
               <img
-                // src={capturedImage}
-                // src={
-                //   capturedImage instanceof File
-                //     ? URL.createObjectURL(capturedImage)
-                //     : capturedImage
-                // }
                 src={`${baseURL}/${itemData.image_url}`}
                 alt="キャプチャした画像"
                 className={styles.form__image}
@@ -219,9 +211,12 @@ const Edit = () => {
             {...register("category_id")}
             className={styles.form__select}
           >
-            <option value="1">カテゴリー1</option>
-            <option value="2">カテゴリー2</option>
-            <option value="3">カテゴリー3</option>
+            <option value="">以下から選択してください（必須）</option>
+            <option value="1">ソーイング</option>
+            <option value="2">編み物</option>
+            <option value="3">刺繍</option>
+            <option value="4">アクセサリー</option>
+            <option value="5">レジン</option>
           </select>
         </div>
         <div className={styles.form__field}>

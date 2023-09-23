@@ -4,12 +4,14 @@ import styles from "./Camera.module.scss";
 import { IoIosRadioButtonOn } from "react-icons/io";
 import { FaCamera } from "react-icons/fa";
 
-FaCamera
+// Webカメラを使って画像をキャプチャ、キャプチャした画像はBase64形式からBlobオブジェクトに変換
+// 変換後、Fileオブジェクトとして親コンポーネントに渡す
+// キャプチャと再キャプチャを切り替える機能もあり
 
 // Base64 エンコードされたデータを Blob オブジェクトに変換
 const base64ToBlob = (base64data, contentType) => {
-  //   // データURIからbase64データのみを取得する
-  const base64Payload = base64data.split(',')[1];
+  // データURIからbase64データのみを取得する
+  const base64Payload = base64data.split(",")[1];
   const byteCharacters = atob(base64Payload);
   const byteArrays = [];
 
@@ -28,21 +30,20 @@ const base64ToBlob = (base64data, contentType) => {
   return new Blob(byteArrays, { type: contentType });
 };
 
-
-
+// Cameraコンポーネントの定義
 // eslint-disable-next-line react/prop-types
 const Camera = ({ onCapture }) => {
-  const webcamRef = useRef(null);
-  const [isCapturing, setIsCapturing] = useState(true);
+  const webcamRef = useRef(null); // Webcamコンポーネントへの参照を保持
+  const [isCapturing, setIsCapturing] = useState(true); // 現在キャプチャモードかどうかのステート
   const [capturedImage, setCapturedImage] = useState(null); // キャプチャ画像を保存するステート
 
+  // 画像をキャプチャする関数
   const capture = (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (isCapturing) {
       setIsCapturing(false);
-      const imageSrc = webcamRef.current.getScreenshot();
-      //   console.log("Captured Image:", imageSrc); // キャプチャされた画像をコンソールに表示
+      const imageSrc = webcamRef.current.getScreenshot(); // Webcamからスクリーンショットを取得
 
       setCapturedImage(imageSrc);
       const contentType = "image/jpeg";
@@ -52,9 +53,7 @@ const Camera = ({ onCapture }) => {
         type: contentType,
       });
 
-      //   console.log(blobImage); // Blobオブジェクトが正しく生成されていることを確認
-      //   console.log(fileImage); // Fileオブジェクトが正しく生成されていることを確認
-
+      // 生成したFileオブジェクトを外部に伝える
       onCapture(fileImage);
     } else {
       setIsCapturing(true);
@@ -66,21 +65,22 @@ const Camera = ({ onCapture }) => {
     facingMode: "environment", // "user" はフロントカメラ, "environment" は後ろのカメラ
   };
   //  videoConstraints={(isMobile) ? {facingMode:{exact:"environment"}} : {facingMode:"user"}}
-const videoStyle = {
-  width: "20rem", // 幅を変更する値に設定
-  height: "15rem", // 高さを自動調整する場合
-  marginBottom: "1rem",
-};
+  const videoStyle = {
+    width: "20rem", // 幅を変更する値に設定
+    height: "20rem", // 高さを自動調整する場合
+    marginBottom: "1rem",
+  };
 
   return (
     <div className={styles["camera-container"]}>
+      {/* キャプチャモード時の表示 */}
       {isCapturing ? (
         <>
           <Webcam
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            // className={styles["camera-container__video"]} // クラス名をスタイルオブジェクトから取得
+            // className={styles["camera-container__video"]} 今回はstyleで記述
             videoConstraints={videoConstraints}
             style={videoStyle}
           />
@@ -88,20 +88,21 @@ const videoStyle = {
             onClick={capture}
             size={50}
             color="#e8aaa3"
-            // className={`${styles["camera-container__button"]} ${styles["camera-container__button--pink"]}`}
+            // className={`${styles["camera-container__button"]} ${styles["camera-container__button--pink"]}`} 今回はstyleで記述
           />
         </>
       ) : (
+        // 画像がキャプチャされた後の表示
         <>
           <img
             src={capturedImage}
             alt="キャプチャされた画像"
-            className={styles["camera-container__image"]} // クラス名をスタイルオブジェクトから取得
+            className={styles["camera-container__image"]}
             style={videoStyle}
           />
           <FaCamera
             onClick={capture}
-            className={`${styles["camera-container__button"]} ${styles["camera-container__button--pink"]}`} // 複数のクラス名を組み合わせ
+            className={`${styles["camera-container__button"]} ${styles["camera-container__button--pink"]}`}
           />
         </>
       )}
@@ -110,26 +111,3 @@ const videoStyle = {
 };
 
 export default Camera;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
