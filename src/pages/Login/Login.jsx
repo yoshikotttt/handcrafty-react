@@ -1,11 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import {} from "react";
-import "../../App.css";
+import styles from "../../App.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Logout from "../../components/other/Logout";
+import { Button } from "antd";
+
 
 
 const Login = () => {
@@ -69,10 +71,11 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
         />
         <p>{errors.password ? errors.password.message : null}</p>
 
-        <button type="submit">ログイン</button>
+        <button type="submit">Log in</button>
+        {/* <Button type="submit">Log in</Button> */}
       </form>
 
-      <Logout/>
+      <Logout />
     </div>
   );
 };

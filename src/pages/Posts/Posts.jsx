@@ -3,8 +3,10 @@ import {useEffect, useState} from 'react'
 // import { useNavigate } from "react-router-dom";
 import NewPostButton from '../../components/common/NewPostButton/NewPostButton';
 import axios from 'axios';
-import "./Posts.css"
+import styles from "./Posts.module.scss";
 import { Link } from 'react-router-dom';
+import CategoryLink from '../../components/common/CategoryLink/CategoryLink';
+
 
 
 
@@ -30,20 +32,25 @@ const Posts = () => {
 
   return (
     <>
-      <div>
-        <h2>投稿一覧</h2>
-        <ul>
+      <div className={styles["post-list"]}>
+        <CategoryLink/>
+        <h2 className={styles["post-list__title"]}>posts</h2>
+        <ul className={styles["post-list__items"]}>
           {items
             .sort((a, b) => b.id - a.id)
             .map((item) => (
-              <li key={item.id}>
+              <li key={item.id} className={styles["post-list__item"]}>
                 {/* {item.title} */}
-                <Link to={`/posts/${item.id}`}>
+                <Link
+                  to={`/posts/${item.id}`}
+                  className={styles["post-list__link"]}
+                >
                   {item.image_url && (
                     <img
                       src={`${baseURL}/${item.image_url}`}
                       alt="アイテム画像"
-                      style={{ width: "100px", height: "100px" }}
+                      className={styles["post-list__image"]}
+                      style={{ width: "100px", height: "100px" }} // If needed, you can move these styles to the CSS module file
                     />
                   )}
                 </Link>
@@ -54,6 +61,7 @@ const Posts = () => {
       <NewPostButton />
     </>
   );
+
 };
 
 export default Posts

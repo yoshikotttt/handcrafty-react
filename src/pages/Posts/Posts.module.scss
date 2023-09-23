@@ -1,0 +1,62 @@
+
+ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0px;
+  padding: 0;
+}
+
+/* PC */
+@media (min-width: 768px) {
+  ul {
+    grid-template-columns: repeat(4, 1fr); 
+  }
+
+  img {
+  max-width: 100%;
+  height: auto; /* 高さをautoに変更 */
+  display: block; /* 追加 */
+}
+
+}
+
+
+li {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box; /* 追加 */
+}
+
+img {
+  max-width: 100%;
+  height: auto; /* 高さをautoに変更 */
+  display: block; /* 追加 */
+}
+
+
+.post-list {
+  /* ... */
+}
+
+.post-list__title {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  /* ... */
+}
+
+.post-list__items {
+  /* ... */
+}
+
+.post-list__item {
+  /* ... */
+}
+
+.post-list__link {
+  /* ... */
+}
+
+.post-list__image {
+  width: 100px;
+  height: 100px;
+}

@@ -1,6 +1,8 @@
 // import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
+import { FloatButton} from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 const NewPostButton = () => {
 
@@ -11,28 +13,33 @@ const NewPostButton = () => {
      navigate(`/users/posts/new`);
    };
 
-   const buttonStyle = {
-     width: "50px",
-     height: "50px",
-     borderRadius: "50%",
-     backgroundColor: "#e8accb",
-     color: "white",
-     border: "none",
-     position: "absolute",
-     right: "30px",
-     bottom: "10px",
-     cursor: "pointer",
-     textAlign: "center",
-     display: "flex",
-     justifyContent: "center", 
-     alignItems: "center", 
-   };
+const buttonStyle = {
+  position: "fixed",
+  right: "40px",
+  bottom: "80px",
+  // backgroundColor: "#e8aaa3",
+};
 
    return (
      <>
-       <button style={buttonStyle} onClick={handleNewPostClick}>
+       {/* <button style={buttonStyle} onClick={handleNewPostClick}>
          <AiOutlinePlus size="1.5rem" />
-       </button>
+       </button> */}
+       <FloatButton
+         icon={<PlusOutlined />}
+         style={buttonStyle}
+         onClick={handleNewPostClick}
+         
+       >
+         <AiOutlinePlus size="1.5rem" />
+       </FloatButton>
+       {/* <FloatButton
+         icon={<PlusOutlined />}
+         type="primary"
+         style={{
+           right: 24,
+         }}
+       /> */}
        {/* <button onClick={() => navigate(`/users/${user_id}/posts/new`)}>
         新規登録
       </button> */}

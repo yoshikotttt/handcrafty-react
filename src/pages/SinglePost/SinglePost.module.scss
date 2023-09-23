@@ -1,0 +1,97 @@
+// styles.scss
+.single-post {
+  padding: 10px;
+  margin: 10px;
+
+  max-height: calc(100vh - 100px); /* 100pxはフッターの高さに合わせて調整 */
+  overflow-y: auto;
+
+
+  /* 共通のスタイル */
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    /* スマートフォン用のスタイル */
+  }
+
+  @media (min-width: 769px) {
+    font-size: 18px;
+    /* PC用のスタイル */
+  }
+}
+
+.single-post__author {
+  font-weight: bold;
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    /* スマートフォン用のスタイル */
+  }
+
+  @media (min-width: 769px) {
+    font-size: 18px;
+    /* PC用のスタイル */
+  }
+}
+
+.single-post__title {
+  font-size: 1.5rem;
+}
+
+.single-post__image {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1; /* 正方形のアスペクト比を設定 */
+
+  @media (max-width: 768px) {
+    width: 20rem;
+    margin: 0 auto;
+    /* スマートフォン用のスタイル */
+  }
+
+  @media (min-width: 769px) {
+    width: 30rem;
+    margin: 0 auto;
+    /* PC用のスタイル */
+  }
+}
+
+.single-post__category-container {
+  display: flex; /* 子要素を横並びにする */
+  align-items: center; /* 垂直方向の中央揃え */
+  gap: 10px; /* 子要素間のスペース */
+  margin-top: 1rem;
+}
+
+
+.single-post__category {
+}
+
+.single-post__category-name {
+}
+
+.single-post__description {
+}
+
+.single-post__reference {
+  font-size: 0.8rem;
+}
+
+.single-post__reference-link {
+  display: block;
+  font-size: 1rem;
+}
+
+.single-post__timestamp {
+  font-size: 0.8rem;
+}
+
+.button-container {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+justify-content: center;
+  gap: 5rem; /* ボタン間のスペース */
+ 
+}
