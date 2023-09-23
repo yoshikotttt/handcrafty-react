@@ -1,6 +1,10 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
-import "./Camera.module.scss";
+import styles from "./Camera.module.scss";
+import { IoIosRadioButtonOn } from "react-icons/io";
+import { FaCamera } from "react-icons/fa";
+
+FaCamera
 
 // Base64 エンコードされたデータを Blob オブジェクトに変換
 const base64ToBlob = (base64data, contentType) => {
@@ -33,12 +37,12 @@ const Camera = ({ onCapture }) => {
   const [capturedImage, setCapturedImage] = useState(null); // キャプチャ画像を保存するステート
 
   const capture = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     if (isCapturing) {
       setIsCapturing(false);
       const imageSrc = webcamRef.current.getScreenshot();
-    //   console.log("Captured Image:", imageSrc); // キャプチャされた画像をコンソールに表示
+      //   console.log("Captured Image:", imageSrc); // キャプチャされた画像をコンソールに表示
 
       setCapturedImage(imageSrc);
       const contentType = "image/jpeg";
@@ -48,8 +52,8 @@ const Camera = ({ onCapture }) => {
         type: contentType,
       });
 
-    //   console.log(blobImage); // Blobオブジェクトが正しく生成されていることを確認
-    //   console.log(fileImage); // Fileオブジェクトが正しく生成されていることを確認
+      //   console.log(blobImage); // Blobオブジェクトが正しく生成されていることを確認
+      //   console.log(fileImage); // Fileオブジェクトが正しく生成されていることを確認
 
       onCapture(fileImage);
     } else {
@@ -62,36 +66,43 @@ const Camera = ({ onCapture }) => {
     facingMode: "environment", // "user" はフロントカメラ, "environment" は後ろのカメラ
   };
   //  videoConstraints={(isMobile) ? {facingMode:{exact:"environment"}} : {facingMode:"user"}}
+const videoStyle = {
+  width: "20rem", // 幅を変更する値に設定
+  height: "15rem", // 高さを自動調整する場合
+  marginBottom: "1rem",
+};
 
-  const videoStyle = {
-    width: "250px", // 幅を変更する値に設定
-    height: "250px", // 高さを自動調整する場合
-  };
   return (
-    <div className="camera-container">
+    <div className={styles["camera-container"]}>
       {isCapturing ? (
         <>
           <Webcam
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            style={videoStyle}
+            // className={styles["camera-container__video"]} // クラス名をスタイルオブジェクトから取得
             videoConstraints={videoConstraints}
+            style={videoStyle}
           />
-          <button onClick={capture} className="pink-button">
-            停止
-          </button>
+          <IoIosRadioButtonOn
+            onClick={capture}
+            size={50}
+            color="#e8aaa3"
+            // className={`${styles["camera-container__button"]} ${styles["camera-container__button--pink"]}`}
+          />
         </>
       ) : (
         <>
           <img
             src={capturedImage}
             alt="キャプチャされた画像"
-            style={{ width: "250px", height: "250px" }}
+            className={styles["camera-container__image"]} // クラス名をスタイルオブジェクトから取得
+            style={videoStyle}
           />
-          <button type="button" onClick={capture} className="pink-button">
-            再撮影
-          </button>
+          <FaCamera
+            onClick={capture}
+            className={`${styles["camera-container__button"]} ${styles["camera-container__button--pink"]}`} // 複数のクラス名を組み合わせ
+          />
         </>
       )}
     </div>

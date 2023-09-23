@@ -7,7 +7,6 @@ import EditButton from "../../components/common/EditButton/EditButton";
 import styles from "./SinglePost.module.scss";
 import { Tag } from "antd";
 
-
 const SinglePost = () => {
   const { item_id } = useParams();
   //   console.log("itemidの結果", item_id);
@@ -58,12 +57,12 @@ const SinglePost = () => {
     return categoryColorMap[categoryName] || "defaultColor"; // マッピングがない場合はデフォルトの色を指定
   };
 
-  const  truncatedText = (text, maxLength) => {
+  const truncatedText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
     }
     return text.slice(0, maxLength) + "...";
-  }
+  };
 
   return (
     <>
@@ -87,6 +86,7 @@ const SinglePost = () => {
                 投稿日時: {formatCreatedAt(itemData.created_at)}
               </p>
             )}
+
             {itemData.category_id && (
               <Tag color={getCategoryColor(itemData.category.name)}>
                 {itemData.category.name}
@@ -113,11 +113,11 @@ const SinglePost = () => {
             </p>
           )}
 
-          {itemData.user_id === loggedInUserId && (
-            <EditButton itemId={item_id} />
-          )}
-          {itemData.user_id === loggedInUserId && (
-            <DeleteButton itemId={item_id} />
+          {itemData.user_id == loggedInUserId && (
+            <div className={styles["button-container"]}>
+              <EditButton itemId={item_id} />
+              <DeleteButton itemId={item_id} />
+            </div>
           )}
         </div>
       ) : (
@@ -127,4 +127,3 @@ const SinglePost = () => {
   );
 };
 export default SinglePost;
-

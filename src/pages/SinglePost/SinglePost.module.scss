@@ -3,6 +3,10 @@
   padding: 10px;
   margin: 10px;
 
+  max-height: calc(100vh - 100px); /* 100pxはフッターの高さに合わせて調整 */
+  overflow-y: auto;
+
+
   /* 共通のスタイル */
 
   @media (max-width: 768px) {
@@ -81,4 +85,13 @@
 
 .single-post__timestamp {
   font-size: 0.8rem;
+}
+
+.button-container {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+justify-content: center;
+  gap: 5rem; /* ボタン間のスペース */
+ 
 }

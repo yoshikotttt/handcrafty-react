@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../App.css";
+import styles from "./Edit.module.scss";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -14,6 +15,11 @@ const Edit = () => {
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [isCameraVisible, setIsCameraVisible] = useState(false);
+  const [originalImageURL, setOriginalImageURL] = useState(null);
+
+
+  
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -42,6 +48,7 @@ const Edit = () => {
         setValue("reference_url", response.data.reference_url);
         setValue("memo", response.data.memo);
         setImageURL("image_url", response.data.image_url);
+        setOriginalImageURL(response.data.image_url);
 
         console.log("res", responseData);
       } catch (error) {
@@ -61,6 +68,16 @@ const Edit = () => {
     setCapturedImage(imageSrc);
   };
 
+
+  const toggleCameraVisibility = () => {
+    setIsCameraVisible((prev) => !prev);
+    if (isCameraVisible) {
+       setCapturedImage(null);
+       setImage(null);
+    setImageURL(originalImageURL);
+    }
+  };
+  
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("title", data.title);
@@ -115,91 +132,155 @@ const Edit = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="image">画像</label>
-          <input type="file" accept="image/*" onChange={onImageChange} />
-          {image ? (
-            <img
-              src={URL.createObjectURL(image)}
-              alt="アイテム画像"
-              style={{ width: "200px", height: "200px" }}
-            />
-          ) : (
-            imageURL && (
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <div className={styles.form__field}>
+          {!isCameraVisible ? (
+            capturedImage ? (
               <img
+                // src={capturedImage}
+                // src={
+                //   capturedImage instanceof File
+                //     ? URL.createObjectURL(capturedImage)
+                //     : capturedImage
+                // }
                 src={`${baseURL}/${itemData.image_url}`}
-                alt="アイテム画像"
+                alt="キャプチャした画像"
+                className={styles.form__image}
                 style={{ width: "200px", height: "200px" }}
               />
+            ) : image ? (
+              <img
+                src={URL.createObjectURL(image)}
+                alt="アイテム画像"
+                className={styles.form__image}
+                style={{ width: "200px", height: "200px" }}
+              />
+            ) : (
+              imageURL && (
+                <img
+                  src={`${baseURL}/${itemData.image_url}`}
+                  alt="元のアイテム画像"
+                  className={styles.form__image}
+                  style={{ width: "200px", height: "200px" }}
+                />
+              )
             )
+          ) : null}
+          {!isCameraVisible ? (
+            <>
+              <button
+                type="button"
+                className={`${styles.form__button} ${styles["form__button--light"]}`}
+                onClick={toggleCameraVisibility}
+              >
+                写真を撮る
+              </button>
+
+              <label htmlFor="image" className={styles.form__label}></label>
+              <input type="file" accept="image/*" onChange={onImageChange} />
+            </>
+          ) : (
+            <>
+              <Camera
+                onCapture={(imageSrc) => {
+                  setCapturedImage(imageSrc);
+                  setImage(imageSrc);
+                }}
+              />
+              <button
+                type="button"
+                className={`${styles.form__button} ${styles["form__button--light"]}`}
+                onClick={toggleCameraVisibility}
+              >
+                元に戻す
+              </button>
+            </>
           )}
         </div>
-        <div>
-          <label htmlFor="camera">カメラ</label>
-          <Camera onCapture={(imageSrc) => setCapturedImage(imageSrc)} />
-          {/* {displayCapturedImage()} */}
+        <div className={styles.form__field}>
+          <label htmlFor="title" className={styles.form__label}>
+            タイトル
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            {...register("title")}
+            className={styles.form__input}
+          />
         </div>
-        <div>
-          <label htmlFor="title">タイトル</label>
-          {/* <input id="title" type="text" name="title"/> */}
-          <input type="text" id="title" name="title" {...register("title")} />
-        </div>
-        <div>
-          <label htmlFor="category">カテゴリー</label>
+        <div className={styles.form__field}>
+          <label htmlFor="category" className={styles.form__label}>
+            カテゴリー
+          </label>
           <select
             id="category_id"
             name="category_id"
             {...register("category_id")}
+            className={styles.form__select}
           >
             <option value="1">カテゴリー1</option>
             <option value="2">カテゴリー2</option>
             <option value="3">カテゴリー3</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="production_time_per_minutes">
+        <div className={styles.form__field}>
+          <label
+            htmlFor="production_time_per_minutes"
+            className={styles.form__label}
+          >
             制作時間（分単位）
           </label>
           <input
-            type="number" // 数値を入力するためのフィールド
+            type="number"
             id="production_time_per_minutes"
             name="production_time_per_minutes"
             {...register("production_time_per_minutes")}
+            className={styles.form__input}
           />
         </div>
-        <div>
-          <label htmlFor="description">説明</label>
+        <div className={styles.form__field}>
+          <label htmlFor="description" className={styles.form__label}>
+            説明
+          </label>
           <textarea
             name="description"
             id="description"
             {...register("description")}
             cols="30"
             rows="10"
+            className={styles.form__textarea}
           ></textarea>
         </div>
-        <div>
-          <label htmlFor="reference_url">参考 URL</label>
+        <div className={styles.form__field}>
+          <label htmlFor="reference_url" className={styles.form__label}>
+            参考 URL
+          </label>
           <input
             type="text"
             id="reference_url"
             name="reference_url"
             {...register("reference_url")}
+            className={styles.form__input}
           />
         </div>
-
-        <div>
-          <label htmlFor="memo">メモ</label>
+        <div className={styles.form__field}>
+          <label htmlFor="memo" className={styles.form__label}>
+            メモ
+          </label>
           <textarea
             name="memo"
             id="memo"
             {...register("memo")}
             cols="30"
             rows="10"
+            className={styles.form__textarea}
           ></textarea>
         </div>
-        <div>
-          <button type="submit">送信</button>
+        <div className={styles.form__field}>
+          <button type="submit" className={styles["form__submit-button"]}>
+            更新
+          </button>
         </div>
       </form>
     </>
