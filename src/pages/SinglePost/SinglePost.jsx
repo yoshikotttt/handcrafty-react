@@ -108,9 +108,9 @@ const SinglePost = () => {
             )}
           </div>
           <div className={styles["single-post__icons"]}>
-            <AiOutlineHeart size="1.5rem" />
-            <BsPinAngle size="1.5rem" />
-            <AiOutlineComment size="1.5rem" />
+            <AiOutlineHeart size="1.5rem" color="#e8aaa3" />
+            <BsPinAngle size="1.5rem" color="#e8aaa3" />
+            <AiOutlineComment size="1.5rem" color="#e8aaa3" />
           </div>
           <p className={styles["single-post__title"]}>{itemData.title}</p>
           {itemData.description && (
@@ -129,6 +129,12 @@ const SinglePost = () => {
               >
                 {truncatedText(itemData.reference_url, 30)}
               </a>
+            </p>
+          )}
+          {itemData.memo && (
+            <p className={styles["single-post__memo"]}>
+              メモ<br/>
+              {itemData.memo}
             </p>
           )}
           {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}

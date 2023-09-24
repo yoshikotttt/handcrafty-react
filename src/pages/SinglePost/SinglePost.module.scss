@@ -42,20 +42,20 @@
 .single-post__image {
   max-width: 100%;
   height: auto;
-  aspect-ratio: 1 / 1; /* 正方形のアスペクト比を設定 */
+  width: 100%; /* 追加 */
+  object-fit: cover; /* 追加 */
 
   @media (max-width: 768px) {
-    width: 20rem;
+    max-width: 20rem; /* widthからmax-widthに変更 */
     margin: 0 auto;
-    /* スマートフォン用のスタイル */
   }
 
   @media (min-width: 769px) {
-    width: 30rem;
+    max-width: 30rem; /* widthからmax-widthに変更 */
     margin: 0 auto;
-    /* PC用のスタイル */
   }
 }
+
 
 .single-post__category-container {
   display: flex; /* 子要素を横並びにする */
@@ -78,6 +78,11 @@
   font-size: 0.8rem;
 }
 
+.single-post__memo {
+  font-size: 0.8rem;
+    margin: 1rem 0;   // 上下にマージンを追加
+  line-height: 1.5; // 行の高さを調整
+}
 .single-post__reference-link {
   display: block;
   font-size: 1rem;
