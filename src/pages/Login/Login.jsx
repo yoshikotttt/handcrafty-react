@@ -76,7 +76,7 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
         />
         <p>{errors.password ? errors.password.message : null}</p>
 
-        <button type="submit" >Log in</button>
+        <button type="submit" className={styles.button}>Log in</button>
   
       </form>
       <div className={styles.register}>新規登録は<Link to="/register">こちら</Link></div>
