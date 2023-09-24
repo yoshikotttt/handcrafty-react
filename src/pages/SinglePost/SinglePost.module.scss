@@ -89,9 +89,23 @@
 
 .button-container {
   margin-top: 40px;
+  margin-bottom: 60px;
   display: flex;
   align-items: center;
 justify-content: center;
   gap: 5rem; /* ボタン間のスペース */
+
  
+}
+
+.single-post__icons {
+  margin-left: 1rem;
+    & > *:not(:last-child) {
+    margin-right: 1rem; // 1remの隙間を追加。値はお好みで調整してください。
+  }
+ 
+}
+
+.single-post__back {
+  margin-bottom: 2rem;
 }
