@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DeleteButton from "../../components/common/DeleteButton/DeleteButton";
 import Cookies from "js-cookie";
 import EditButton from "../../components/common/EditButton/EditButton";
 import styles from "./SinglePost.module.scss";
 import { Tag } from "antd";
+import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from "react-icons/ai";
+import { BsPinAngle, BsFillPinAngleFill } from "react-icons/bs";
+import { IoIosArrowBack } from "react-icons/io";
+
 
 const SinglePost = () => {
 
@@ -74,6 +78,11 @@ const SinglePost = () => {
     <>
       {itemData ? (
         <div className={styles["single-post"]}>
+          <div className={styles["single-post__back"]}>
+            <Link to="/posts">
+              <IoIosArrowBack size="1.5rem" color="#e8aaa3" />
+            </Link>
+          </div>
           <div className={styles["single-post__author"]}>
             投稿者 {itemData.user.name}
           </div>
@@ -97,6 +106,11 @@ const SinglePost = () => {
                 {itemData.category.name}
               </Tag>
             )}
+          </div>
+          <div className={styles["single-post__icons"]}>
+            <AiOutlineHeart size="1.5rem" />
+            <BsPinAngle size="1.5rem" />
+            <AiOutlineComment size="1.5rem" />
           </div>
           <p className={styles["single-post__title"]}>{itemData.title}</p>
           {itemData.description && (

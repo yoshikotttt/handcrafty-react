@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import {} from "react";
-// import styles from "../Login.module.scss";
+import styles from "./Login.module.scss";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import Logout from "../../components/other/Logout";
+import { Link, useNavigate } from "react-router-dom";
+
 
 
 
@@ -51,9 +51,14 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="email">email</label>
+    <div className={styles.login}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.login__container}
+      >
+        <label htmlFor="email" className={styles.login__label}>
+          email
+        </label>
         <input
           id="email"
           type="text"
@@ -71,11 +76,12 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
         />
         <p>{errors.password ? errors.password.message : null}</p>
 
-        <button type="submit">Log in</button>
-        {/* <Button type="submit">Log in</Button> */}
+        <button type="submit" >Log in</button>
+  
       </form>
+      <div className={styles.register}>新規登録は<Link to="/register">こちら</Link></div>
 
-      <Logout />
+     
     </div>
   );
 };

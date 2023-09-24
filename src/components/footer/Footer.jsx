@@ -17,7 +17,8 @@ const Footer = () => {
     return null;
   }
 
-  // アイコンクリック時のハンドラ関数。指定されたパスに遷移する。
+  // アイコンクリック時のハンドラ関数。指定されたパスに遷移する
+  // 追加のロジックがある場合はLinkではなくイベントを使う
   const handleIconClick = (path) => {
     navigate(path);
   };
@@ -74,5 +75,24 @@ const Footer = () => {
     </div>
   );
 };
+
+// 単純なリンクの場合は以下
+// return (
+//     <div style={{ ...iconsStyles, ...footerStyles }}>
+//       <Link to="/posts">
+//         <AiOutlineHome style={individualIconStyle} size="1.5rem" />
+//       </Link>
+//       <Link to="/users/me">
+//         <BiSolidFace style={individualIconStyle} size="1.5rem" />
+//       </Link>
+//       <Link to="/favorites">
+//         <AiOutlinePushpin style={individualIconStyle} size="1.5rem" />
+//       </Link>
+//       <Link to="/settings">
+//         <LuSettings style={individualIconStyle} size="1.5rem" />
+//       </Link>
+//     </div>
+//   );
+// };
 
 export default Footer;
