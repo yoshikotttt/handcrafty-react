@@ -1,8 +1,8 @@
 import {} from "react";
-import "../../App.css";
+import styles from "./Registet.module.scss";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const {
@@ -33,62 +33,88 @@ const Register = () => {
       });
   };
 
-  return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="name">name</label>
-        <input
-          id="name"
-          type="text"
-          {...register("name", {
-            required: "名前は必須です",
-            minLength: { value: 4, message: "4文字以上で入力してください" },
-          })}
-        />
-        <p>{errors.name ? errors.name.message : null}</p>
-        <label htmlFor="email">email</label>
-        <input
-          id="email"
-          type="text"
-          {...register("email", {
-            required: "メールアドレスは必須です",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              message: "有効なEmailアドレスを入力してください",
-            },
-          })}
-        />
-        <p>{errors.email ? errors.email.message : null}</p>
-        <label htmlFor="password">password</label>
-        <input
-          id="password"
-          type="password"
-          {...register("password", {
-            required: "パスワードは必須です",
-            minLength: { value: 8, message: "8文字以上で入力してください" },
-          })}
-        />
-        <p>{errors.password ? errors.password.message : null}</p>
-        <label htmlFor="password_confirmation">password（確認）</label>
-        <input
-          id="password_confirmation"
-          type="password"
-          {...register("password_confirmation", {
-            required: "パスワード確認は必須です",
-            validate: (value) =>
-              value === password || "パスワードが一致しません",
-          })}
-        />
-        <p>
-          {errors.password_confirmation
-            ? errors.password_confirmation.message
-            : null}
-        </p>
+ return (
+   <div className={styles["form-container"]}>
+     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+       <label className={styles["form__label"]} htmlFor="name">
+         name
+       </label>
+       <input
+         className={styles["form__input"]}
+         id="name"
+         type="text"
+         {...register("name", {
+           required: "名前は必須です",
+           minLength: { value: 4, message: "4文字以上で入力してください" },
+         })}
+       />
+       <p className={styles["form__error"]}>
+         {errors.name ? errors.name.message : null}
+       </p>
 
-        <button type="submit">送信</button>
-      </form>
-    </div>
-  );
+       <label className={styles["form__label"]} htmlFor="email">
+         email
+       </label>
+       <input
+         className={styles["form__input"]}
+         id="email"
+         type="text"
+         {...register("email", {
+           required: "メールアドレスは必須です",
+           pattern: {
+             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+             message: "有効なEmailアドレスを入力してください",
+           },
+         })}
+       />
+       <p className={styles["form__error"]}>
+         {errors.email ? errors.email.message : null}
+       </p>
+
+       <label className={styles["form__label"]} htmlFor="password">
+         password
+       </label>
+       <input
+         className={styles["form__input"]}
+         id="password"
+         type="password"
+         {...register("password", {
+           required: "パスワードは必須です",
+           minLength: { value: 8, message: "8文字以上で入力してください" },
+         })}
+       />
+       <p className={styles["form__error"]}>
+         {errors.password ? errors.password.message : null}
+       </p>
+
+       <label className={styles["form__label"]} htmlFor="password_confirmation">
+         password（確認）
+       </label>
+       <input
+         className={styles["form__input"]}
+         id="password_confirmation"
+         type="password"
+         {...register("password_confirmation", {
+           required: "パスワード確認は必須です",
+           validate: (value) =>
+             value === password || "パスワードが一致しません",
+         })}
+       />
+       <p className={styles["form__error"]}>
+         {errors.password_confirmation
+           ? errors.password_confirmation.message
+           : null}
+       </p>
+
+       <button className={styles["form__button"]} type="submit">
+         送信
+       </button>
+     </form>
+     <div className={styles.register}>
+       ログインは<Link to="/login">こちら</Link>
+     </div>
+   </div>
+ );
 };
 
 export default Register;
