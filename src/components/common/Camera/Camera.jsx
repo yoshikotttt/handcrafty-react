@@ -67,7 +67,7 @@ const Camera = ({ onCapture }) => {
   //  videoConstraints={(isMobile) ? {facingMode:{exact:"environment"}} : {facingMode:"user"}}
   const videoStyle = {
     width: "20rem", // 幅を変更する値に設定
-    height: "20rem", // 高さを自動調整する場合
+    height: "auto", // 高さを自動調整する場合
     marginBottom: "1rem",
   };
 
@@ -98,7 +98,7 @@ const Camera = ({ onCapture }) => {
             src={capturedImage}
             alt="キャプチャされた画像"
             className={styles["camera-container__image"]}
-            style={videoStyle}
+            style={{ ...videoStyle, objectFit: "cover" }}
           />
           <FaCamera
             onClick={capture}
