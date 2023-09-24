@@ -5,6 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
 import { useNavigate } from "react-router-dom";
+import useConfirmModal from "../../hooks/useConfirmModal";
 
 // 新規投稿フォーム、入力されたデータは指定されたAPIエンドポイントに送信
 // ユーザーは画像をアップロードするか、カメラを使用して画像をキャプチャすることができます
@@ -16,6 +17,7 @@ const NewPost = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
   const navigate = useNavigate();
+  const confirmModal = useConfirmModal();
 
   const token = Cookies.get("token");
 
@@ -27,6 +29,8 @@ const NewPost = () => {
   const [capturedImage, setCapturedImage] = useState(null);
   // カメラUIを表示するかどうかを制御するフラグ
   const [isCameraVisible, setIsCameraVisible] = useState(true);
+  // 画像のエラー追跡
+  const [imageError, setImageError] = useState("");
 
   // アップロードの画像
   const onImageChange = (event) => {
@@ -51,6 +55,16 @@ const NewPost = () => {
 
 
   const onSubmit = async (data) => {
+
+    if (!image && !capturedImage) {
+      confirmModal(
+        "画像が必要です", // タイトル
+        "画像をアップロードまたはキャプチャしてください。", // コンテンツ
+        () => {} // OKボタンを押した時の動作（ここでは何もしない）
+      );
+      return; // この行で送信処理を中止
+    }
+
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
@@ -137,6 +151,7 @@ const NewPost = () => {
             >
               カメラを開く
             </button>
+            {imageError && <p className={styles.form__error}>{imageError}</p>}
           </div>
         )}
 

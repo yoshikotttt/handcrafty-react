@@ -60,4 +60,7 @@ img {
 .post-list__image {
   width: 100px;
   height: 100px;
+  object-fit: cover;  /* 画像がコンテナに収まるようにトリミングします */
+  object-position: center center;  /* 画像の中心をコンテナの中心に合わせます */
 }
+
