@@ -8,7 +8,14 @@ input {
   box-sizing: border-box;
 }
 
-button {
+.register {
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 2rem;
+}
+
+
+.button {
   width: 9rem;
   padding: 0.5rem;
   border: 0.5px solid #d2c4b2;
@@ -19,10 +26,4 @@ button {
   justify-content: center;
   background-color: #e8aaa3;
   color: white;
-}
-
-.register {
-  text-align: center;
-  font-size: 0.8rem;
-  margin-top: 2rem;
 }
