@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteButton from "../../components/common/DeleteButton/DeleteButton";
 import Cookies from "js-cookie";
 import EditButton from "../../components/common/EditButton/EditButton";
@@ -21,6 +21,8 @@ const SinglePost = () => {
   const loggedInUserId = Cookies.get("user_id");
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
+
+  const navigate = useNavigate();
 
   //マウント時、指定したitem_idをもとにAPIから投稿データを取得してitemDataにセット
   useEffect(() => {
@@ -79,9 +81,11 @@ const SinglePost = () => {
       {itemData ? (
         <div className={styles["single-post"]}>
           <div className={styles["single-post__back"]}>
-            <Link to="/posts">
-              <IoIosArrowBack size="1.5rem" color="#e8aaa3" />
-            </Link>
+            <IoIosArrowBack
+              size="1.5rem"
+              color="#e8aaa3"
+              onClick={() => navigate(-1)}
+            />
           </div>
           <div className={styles["single-post__author"]}>
             投稿者 {itemData.user.name}
@@ -97,7 +101,7 @@ const SinglePost = () => {
             <p className={styles["single-post__category"]}></p>
             {itemData.created_at && (
               <p className={styles["single-post__timestamp"]}>
-                投稿日時: {formatCreatedAt(itemData.created_at)}
+                投稿日: {formatCreatedAt(itemData.created_at)}
               </p>
             )}
 

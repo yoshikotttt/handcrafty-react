@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { BsPinAngle, BsFillPinAngleFill } from "react-icons/bs";
 
+// eslint-disable-next-line react/prop-types
 const FavoriteButton = ({ itemId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -19,7 +20,7 @@ const FavoriteButton = ({ itemId }) => {
             },
           }
         );
-        setIsFavorite(response.data.isLiked);
+        setIsFavorite(response.data.isFavorite); 
       } catch (error) {
         console.error(
           "Error checking if liked:",
@@ -31,6 +32,7 @@ const FavoriteButton = ({ itemId }) => {
   }, [itemId, baseURL, token]); //3つの変数のいずれかが変更された場合、useEffectのコードが再実行される
 
   const handleLike = async () => {
+    console.log(isFavorite);
     try {
         
       if (!isFavorite) {

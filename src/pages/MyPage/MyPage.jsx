@@ -1,12 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import styles from "./MyPage.module.scss"
+import { Link } from "react-router-dom";
 
 const MyPage = () => {
   const [items, setItems] = useState([]);
-
   const token = Cookies.get("token");
-
   const baseURL = import.meta.env.VITE_API_BASE_URL;
  
 
@@ -19,6 +19,7 @@ const MyPage = () => {
           },
         });
         setItems(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
       }
@@ -26,7 +27,32 @@ const MyPage = () => {
     fetchData();
   }, []); // 第2引数が空の配列なので、初回のレンダリング時に1度だけ実行されます
 
-  return <div>MyPage</div>;
+  return (
+    <>
+      <div className={styles["post-list"]}>
+        <ul className={styles["post-list__items"]}>
+          {items.map((items, index) => (
+            <li key={index} className={styles["post-list__item"]}>
+              {/* {item.title} */}
+              <Link
+                to={`/posts/${items.id}`}
+                className={styles["post-list__link"]}
+              >
+                {items.id && items.image_url && (
+                  <img
+                    src={`${baseURL}/${items.image_url}`}
+                    alt="アイテム画像"
+                    className={styles["post-list__image"]}
+                    style={{ width: "100px", height: "100px" }}
+                  />
+                )}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
 };
 
 export default MyPage;
