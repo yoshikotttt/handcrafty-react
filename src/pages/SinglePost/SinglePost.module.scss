@@ -104,6 +104,7 @@ justify-content: center;
 }
 
 .single-post__icons {
+  display: flex;
   margin-left: 1rem;
     & > *:not(:last-child) {
     margin-right: 1rem; // 1remの隙間を追加。値はお好みで調整してください。

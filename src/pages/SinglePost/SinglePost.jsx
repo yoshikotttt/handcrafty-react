@@ -6,13 +6,13 @@ import Cookies from "js-cookie";
 import EditButton from "../../components/common/EditButton/EditButton";
 import styles from "./SinglePost.module.scss";
 import { Tag } from "antd";
-import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from "react-icons/ai";
-import { BsPinAngle, BsFillPinAngleFill } from "react-icons/bs";
+import { AiOutlineComment } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
-
+import LikeButton from "../../components/common/LikeButton/LikeButton";
+import FavoriteButton from "../../components/common/FavoriteButton/FavoriteButton";
+import LikeNotification from "../../components/common/LikeNotification/LikeNotification";
 
 const SinglePost = () => {
-
   // URLからitem_idを取得
   const { item_id } = useParams();
   // 取得したデータの保持
@@ -108,10 +108,11 @@ const SinglePost = () => {
             )}
           </div>
           <div className={styles["single-post__icons"]}>
-            <AiOutlineHeart size="1.5rem" color="#e8aaa3" />
-            <BsPinAngle size="1.5rem" color="#e8aaa3" />
+            <LikeButton itemId={item_id} />
+            <FavoriteButton itemId={item_id} />
             <AiOutlineComment size="1.5rem" color="#e8aaa3" />
           </div>
+          <LikeNotification itemId={item_id} />
           <p className={styles["single-post__title"]}>{itemData.title}</p>
           {itemData.description && (
             <p className={styles["single-post__description"]}>
@@ -133,7 +134,8 @@ const SinglePost = () => {
           )}
           {itemData.memo && (
             <p className={styles["single-post__memo"]}>
-              メモ<br/>
+              メモ
+              <br />
               {itemData.memo}
             </p>
           )}
