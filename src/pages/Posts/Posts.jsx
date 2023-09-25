@@ -18,6 +18,7 @@ const Posts = () => {
       .then((response) => {
         //データ取得できたら、stateを更新
         setItems(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("データの取得に失敗しました", error);

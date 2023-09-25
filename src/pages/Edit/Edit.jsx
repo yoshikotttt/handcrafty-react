@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Edit = () => {
   const [itemData, setItemData] = useState(null);
@@ -20,6 +20,7 @@ const Edit = () => {
   const [originalImageURL, setOriginalImageURL] = useState(null);
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
+  const navigate = useNavigate();
 
   const { register, handleSubmit, setValue } = useForm({
     mode: "onChange",
@@ -46,8 +47,8 @@ const Edit = () => {
           response.data.production_time_per_minutes
         );
         setValue("description", response.data.description);
-        setValue("reference_url", response.data.reference_url);
-        setValue("memo", response.data.memo);
+        setValue("reference_url", response.data.reference_url || "");
+        setValue("memo", response.data.memo || "");
         setImageURL("image_url", response.data.image_url);
         setOriginalImageURL(response.data.image_url);
 
@@ -118,6 +119,7 @@ const Edit = () => {
         }
       );
       console.log(response.status);
+       navigate(-2); 
     } catch (error) {
       console.log("Error response:", error.response.data);
     }

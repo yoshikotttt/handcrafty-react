@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
+// eslint-disable-next-line react/prop-types
 const LikeButton = ({ itemId }) => {
   const [isLiked, setIsLiked] = useState(false);
   const baseURL = import.meta.env.VITE_API_BASE_URL;
