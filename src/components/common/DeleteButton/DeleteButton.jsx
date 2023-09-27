@@ -42,18 +42,23 @@ const DeleteButton = ({ itemId }) => {
         });
     }
   };
+
+  const buttonStyle = {
+    color: "#e8aaa3",
+    padding: "5px 10px",
+    border: "1px solid #e8aaa3",
+    borderRadius: "4px",
+    marginBottom: "20px",
+    backgroundColor: "white",
+  };
+
+  
   return (
     <>
       <button
         type="button"
         onClick={handleDelete}
-        style={{
-          color: "#e8aaa3",
-          padding: "5px 10px",
-          border: "1px solid #e8aaa3",
-          borderRadius: "4px",
-          marginBottom: "20px",
-        }}
+        style={buttonStyle}
       >
         投稿を削除する
       </button>
