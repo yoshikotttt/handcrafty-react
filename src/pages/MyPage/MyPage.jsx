@@ -31,12 +31,13 @@ const MyPage = () => {
   }, []); // 第2引数が空の配列なので、初回のレンダリング時に1度だけ実行されます
 
   if (isLoading) {
-    return <p>loading...</p>;
+   return <p className={styles["loading-text"]}>loading...</p>;
   }
 
   return (
     <>
       <div className={styles["post-list"]}>
+        <h2 className={styles["post-list__title"]}>My Page</h2>
         {items.length === 0 ? (
           <p className={styles["post-list__no-items"]}>投稿はありません</p>
         ) : (
@@ -53,7 +54,6 @@ const MyPage = () => {
                       src={`${baseURL}/${item.image_url}`}
                       alt="アイテム画像"
                       className={styles["post-list__image"]}
-                      style={{ width: "100px", height: "100px" }}
                     />
                   )}
                 </Link>

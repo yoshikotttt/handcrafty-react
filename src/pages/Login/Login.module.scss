@@ -40,3 +40,13 @@ input {
   padding: 0px;
   margin-top: 0;
 }
+
+.login {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
