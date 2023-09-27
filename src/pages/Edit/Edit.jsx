@@ -6,6 +6,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
 import { useNavigate, useParams } from "react-router-dom";
+import DeleteButton from "../../components/common/DeleteButton/DeleteButton";
 
 const Edit = () => {
   const [itemData, setItemData] = useState(null);
@@ -278,6 +279,7 @@ const Edit = () => {
           <button type="submit" className={styles["form__submit-button"]}>
             更新
           </button>
+          <DeleteButton itemId={item_id} />
         </div>
       </form>
     </>

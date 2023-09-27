@@ -1,5 +1,5 @@
 import {} from "react";
-import styles from "./Registet.module.scss";
+import styles from "./Register.module.scss";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({ mode: "onChange" });
+  } = useForm({ mode: "onSubmit" });
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -88,7 +88,7 @@ const Register = () => {
        </p>
 
        <label className={styles["form__label"]} htmlFor="password_confirmation">
-         password（確認）
+         password <span className={styles["confirmation-text"]}>（確認）</span>
        </label>
        <input
          className={styles["form__input"]}
