@@ -3,7 +3,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { RiDeleteBinLine } from "react-icons/ri";
 
 // itemIdに基づいてAPIを呼び出し、そのアイテムを削除
 // アイコンをクリックすると、確認ダイアログが表示され、OKを選択すると実際の削除処理を実行する
@@ -32,9 +31,9 @@ const DeleteButton = ({ itemId }) => {
           },
         })
         .then(() => {
-          // 削除に成功したらアラートを表示して投稿一覧ページにリダイレクト
+          // 削除に成功したらアラートを表示して前ページにリダイレクト
           alert("削除しました");
-          navigate("/posts");
+          navigate(-2);
         })
         .catch((error) => {
           // 削除に失敗したらエラーメッセージをコンソールとアラートに出力
@@ -45,7 +44,19 @@ const DeleteButton = ({ itemId }) => {
   };
   return (
     <>
-      <RiDeleteBinLine onClick={handleDelete} size="1.5rem" color="#e8aaa3" />
+      <button
+        type="button"
+        onClick={handleDelete}
+        style={{
+          color: "#e8aaa3",
+          padding: "5px 10px",
+          border: "1px solid #e8aaa3",
+          borderRadius: "4px",
+          marginBottom: "20px",
+        }}
+      >
+        投稿を削除する
+      </button>
     </>
   );
 };

@@ -3,6 +3,7 @@ import { AiOutlineHome, AiOutlinePushpin } from "react-icons/ai";
 import { BiSolidFace } from "react-icons/bi";
 import { LuSettings } from "react-icons/lu";
 import { useLocation, useNavigate } from "react-router-dom";
+import styles from "./Footer.module.scss"; 
 
 
 
@@ -23,60 +24,50 @@ const Footer = () => {
     navigate(path);
   };
 
-  //以下style
-  const iconsStyles = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    color: "#e8aaa3",
-  };
-
-  const individualIconStyle = {
-    fontSize: "2rem", // `size="2rem"` の代わり
-    cursor: "pointer",
-  };
-
-  const footerStyles = {
-    position: "fixed",
-    bottom: 0,
-    left: 0,
-    width: "90%",
-    backgroundColor: "#f2f2f2", // フッターの背景色を設定
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "10px 20px", // フッター内の余白を設定
-  };
+ 
 
   //レンダリング部分
   return (
-    <div style={{ ...iconsStyles, ...footerStyles }}>
-      <AiOutlineHome
-        style={individualIconStyle}
-        size="1.5rem"
-        onClick={() => handleIconClick("/posts")}
-      />
-      <BiSolidFace
-        style={individualIconStyle}
-        size="1.5rem"
-        onClick={() => handleIconClick(`/users/me`)}
-      />
-      <AiOutlinePushpin
-        style={individualIconStyle}
-        size="1.5rem"
-        onClick={() => handleIconClick("/favorites")}
-      />
-      <LuSettings
-        style={individualIconStyle}
-        size="1.5rem"
-        onClick={() => handleIconClick("/settings")}
-      />
+    <div className={`${styles["iconsStyles"]} ${styles["footerStyles"]}`}>
+      <div className={styles["icon-container"]}>
+        <AiOutlineHome
+          size="1.5rem"
+          onClick={() => handleIconClick("/posts")}
+        />
+        <p className={styles["icon-container__label"]}>ホーム</p>
+      </div>
+      <div className={styles["icon-container"]}>
+        <BiSolidFace
+          size="1.5rem"
+          className={styles["individualIconStyle"]}
+          onClick={() => handleIconClick(`/users/me`)}
+        />
+        <p className={styles["icon-container__label"]}>マイページ</p>
+      </div>
+      <div className={styles["icon-container"]}>
+        <AiOutlinePushpin
+          size="1.5rem"
+          className={styles["individualIconStyle"]}
+          onClick={() => handleIconClick("/favorites")}
+        />
+        <p className={styles["icon-container__label"]}>お気に入り</p>
+      </div>
+      <div className={styles["icon-container"]}>
+        <LuSettings
+          size="1.5rem"
+          className={styles["individualIconStyle"]}
+          onClick={() => handleIconClick("/settings")}
+        />
+        <p className={styles["icon-container__label"]}>設定</p>
+      </div>
     </div>
   );
 };
 
-// 単純なリンクの場合は以下
+
+export default Footer;
+
+// 単純なリンクの場合は以下で良い
 // return (
 //     <div style={{ ...iconsStyles, ...footerStyles }}>
 //       <Link to="/posts">
@@ -95,4 +86,4 @@ const Footer = () => {
 //   );
 // };
 
-export default Footer;
+

@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import DeleteButton from "../../components/common/DeleteButton/DeleteButton";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import EditButton from "../../components/common/EditButton/EditButton";
 import styles from "./SinglePost.module.scss";
 import { Tag } from "antd";
-import { AiOutlineComment } from "react-icons/ai";
+// import { AiOutlineComment } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 import LikeButton from "../../components/common/LikeButton/LikeButton";
 import FavoriteButton from "../../components/common/FavoriteButton/FavoriteButton";
@@ -87,8 +86,17 @@ const SinglePost = () => {
               onClick={() => navigate(-1)}
             />
           </div>
-          <div className={styles["single-post__author"]}>
-            投稿者 {itemData.user.name}
+          <div className={styles["single-post__header"]}>
+            <div className={styles["single-post__author"]}>
+              投稿者 {itemData.user.name}
+            </div>
+            {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
+            {itemData.user_id == loggedInUserId && (
+              <div className={styles["button-container"]}>
+              
+                  <EditButton itemId={item_id} />
+              </div>
+            )}
           </div>
           {itemData.image_url && (
             <img
@@ -114,7 +122,6 @@ const SinglePost = () => {
           <div className={styles["single-post__icons"]}>
             <LikeButton itemId={item_id} />
             <FavoriteButton itemId={item_id} />
-            <AiOutlineComment size="1.5rem" color="#e8aaa3" />
           </div>
           <LikeNotification itemId={item_id} />
           <p className={styles["single-post__title"]}>{itemData.title}</p>
@@ -142,13 +149,6 @@ const SinglePost = () => {
               <br />
               {itemData.memo}
             </p>
-          )}
-          {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
-          {itemData.user_id == loggedInUserId && (
-            <div className={styles["button-container"]}>
-              <EditButton itemId={item_id} />
-              <DeleteButton itemId={item_id} />
-            </div>
           )}
         </div>
       ) : (
