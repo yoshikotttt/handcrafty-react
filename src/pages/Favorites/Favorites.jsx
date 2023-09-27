@@ -34,13 +34,13 @@ const Favorites = () => {
   }, []); // このeffectはマウント時にのみ実行されるので、空配列を持たせる
 
   if (isLoading) {
-    return <p>loading...</p>;
+  return <p className={styles["loading-text"]}>loading...</p>;
   }
 
   return (
     <>
       <div className={styles["post-list"]}>
-        <p className={styles["post-list__title"]}>お気に入り一覧</p>
+        <h2 className={styles["post-list__title"]}>Favorites</h2>
         {favorites.length === 0 ? (
           <p className={styles["post-list__no-items"]}>
             お気に入りはありません
@@ -55,12 +55,13 @@ const Favorites = () => {
                   className={styles["post-list__link"]}
                 >
                   {favorite.item && favorite.item.image_url && (
-                    <img
-                      src={`${baseURL}/${favorite.item.image_url}`}
-                      alt="アイテム画像"
-                      className={styles["post-list__image"]}
-                      style={{ width: "100px", height: "100px" }}
-                    />
+                    <div className={styles["post-list__image-container"]}>
+                      <img
+                        src={`${baseURL}/${favorite.item.image_url}`}
+                        alt="アイテム画像"
+                        className={styles["post-list__image"]}
+                      />
+                    </div>
                   )}
                 </Link>
               </li>

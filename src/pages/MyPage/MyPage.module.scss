@@ -1,4 +1,3 @@
-
 ul {
   list-style: none;
   display: grid;
@@ -10,17 +9,15 @@ ul {
 /* PC */
 @media (min-width: 768px) {
   ul {
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(4, 1fr);
   }
 
   img {
-  max-width: 100%;
-  height: auto; /* 高さをautoに変更 */
-  display: block; /* 追加 */
+    max-width: 100%;
+    height: auto; /* 高さをautoに変更 */
+    display: block; /* 追加 */
+  }
 }
-
-}
-
 
 li {
   padding: 0px;
@@ -30,19 +27,20 @@ li {
 
 img {
   max-width: 100%;
-  height: auto; 
-  display: block; 
+  height: auto;
+  display: block;
 }
-
 
 .post-list {
   /* ... */
 }
 
 .post-list__title {
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  color: #70372c;
-  /* ... */
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: #604461;
+  text-align: center;
+  margin: 2rem auto 2rem;
 }
 
 .post-list__items {
@@ -58,9 +56,16 @@ img {
 }
 
 .post-list__image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;  /* 画像がコンテナに収まるようにトリミングします */
-  object-position: center center;  /* 画像の中心をコンテナの中心に合わせます */
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover; /* 画像がコンテナに収まるようにトリミングします */
+  object-position: center center; /* 画像の中心をコンテナの中心に合わせます */
 }
 
+.loading-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

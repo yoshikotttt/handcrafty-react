@@ -3,7 +3,7 @@ import NewPostButton from "../../components/common/NewPostButton/NewPostButton";
 import axios from "axios";
 import styles from "./Posts.module.scss";
 import { Link } from "react-router-dom";
-import CategoryLink from "../../components/common/CategoryLink/CategoryLink";
+
 
 const Posts = () => {
   // 投稿データを管理するためのステート
@@ -30,14 +30,13 @@ const Posts = () => {
   }, []); // このeffectはマウント時にのみ実行されるので、空配列を持たせる
 
  if (isLoading) {
-   return <p>loading...</p>;
+   return <p className={styles["loading-text"]}>loading...</p>;
  }
   return (
     <>
       {/* IDの降順にソートしてからリストとして表示 */}
       <div className={styles["post-list"]}>
-        <CategoryLink />
-        <h2 className={styles["post-list__title"]}>posts</h2>
+        <h2 className={styles["post-list__title"]}>Craft Gallery</h2>
         {items.length === 0 ? (
           <p className={styles["post-list__no-items"]}>投稿はありません</p>
         ) : (
@@ -56,7 +55,7 @@ const Posts = () => {
                         src={`${baseURL}/${item.image_url}`}
                         alt="アイテム画像"
                         className={styles["post-list__image"]}
-                        style={{ width: "100px", height: "100px" }}
+                        loading="lazy" 
                       />
                     )}
                   </Link>
