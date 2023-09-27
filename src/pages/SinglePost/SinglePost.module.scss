@@ -1,11 +1,10 @@
 // styles.scss
 .single-post {
   padding: 10px;
+  padding-bottom: 150px;
   margin: 10px;
-
   max-height: calc(100vh - 100px); /* 100pxはフッターの高さに合わせて調整 */
-  overflow-y: auto;
-
+  // overflow-y: auto;
 
   /* 共通のスタイル */
 
@@ -18,6 +17,14 @@
     font-size: 18px;
     /* PC用のスタイル */
   }
+}
+
+.single-post__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 
 .single-post__author {
@@ -36,7 +43,7 @@
 }
 
 .single-post__title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .single-post__image {
@@ -56,14 +63,12 @@
   }
 }
 
-
 .single-post__category-container {
   display: flex; /* 子要素を横並びにする */
   align-items: center; /* 垂直方向の中央揃え */
   gap: 10px; /* 子要素間のスペース */
   margin-top: 1rem;
 }
-
 
 .single-post__category {
 }
@@ -80,12 +85,22 @@
 
 .single-post__memo {
   font-size: 0.8rem;
-    margin: 1rem 0;   // 上下にマージンを追加
+  margin: 1rem 0; // 上下にマージンを追加
   line-height: 1.5; // 行の高さを調整
 }
 .single-post__reference-link {
   display: block;
   font-size: 1rem;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.8rem;
+}
+.single-post__reference-link:visited {
+  display: block;
+  font-size: 1rem;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.8rem;
 }
 
 .single-post__timestamp {
@@ -93,22 +108,16 @@
 }
 
 .button-container {
-  margin-top: 40px;
-  margin-bottom: 60px;
   display: flex;
-  align-items: center;
-justify-content: center;
-  gap: 5rem; /* ボタン間のスペース */
-
- 
+  margin-bottom: 1rem;
 }
 
 .single-post__icons {
-  margin-left: 1rem;
-    & > *:not(:last-child) {
+  display: flex;
+  margin-right: 1rem;
+  & > *:not(:last-child) {
     margin-right: 1rem; // 1remの隙間を追加。値はお好みで調整してください。
   }
- 
 }
 
 .single-post__back {

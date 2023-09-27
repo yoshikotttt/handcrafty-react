@@ -18,6 +18,7 @@ import Footer from "./components/footer/Footer";
 import MyPage from "./pages/MyPage/MyPage";
 import Settings from "./pages/Settings/Settings";
 import Favorites from "./pages/Favorites/Favorites";
+import Likes from "./pages/Likes/Likes";
 
 function App() {
    
@@ -32,8 +33,11 @@ function App() {
           <Route path={`/users/posts/new`} element={<NewPost />}></Route>
           <Route path="/posts" element={<Posts />}></Route>
           <Route path="/posts/:item_id" element={<SinglePost />}></Route>
-          <Route path="/users/:user_id" element={<MyPage />}></Route>
-          <Route path="/settings" element={<Settings/>}></Route>
+          
+          {/* 関数内でitemIdと統一してあるので、item_idではなくitemIdとする */}
+          <Route path="/posts/:itemId/likes" element={<Likes/>}></Route>
+          <Route path="/users/me" element={<MyPage />}></Route>
+          <Route path="/settings" element={<Settings />}></Route>
           <Route path="/favorites" element={<Favorites />}></Route>
           <Route path="users/posts/:item_id/edit" element={<Edit />}></Route>
         </Routes>

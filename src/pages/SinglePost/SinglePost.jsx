@@ -1,18 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import DeleteButton from "../../components/common/DeleteButton/DeleteButton";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import EditButton from "../../components/common/EditButton/EditButton";
 import styles from "./SinglePost.module.scss";
 import { Tag } from "antd";
-import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from "react-icons/ai";
-import { BsPinAngle, BsFillPinAngleFill } from "react-icons/bs";
+// import { AiOutlineComment } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
-
+import LikeButton from "../../components/common/LikeButton/LikeButton";
+import FavoriteButton from "../../components/common/FavoriteButton/FavoriteButton";
+import LikeNotification from "../../components/common/LikeNotification/LikeNotification";
 
 const SinglePost = () => {
-
   // URLからitem_idを取得
   const { item_id } = useParams();
   // 取得したデータの保持
@@ -21,6 +20,8 @@ const SinglePost = () => {
   const loggedInUserId = Cookies.get("user_id");
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
+
+  const navigate = useNavigate();
 
   //マウント時、指定したitem_idをもとにAPIから投稿データを取得してitemDataにセット
   useEffect(() => {
@@ -79,12 +80,23 @@ const SinglePost = () => {
       {itemData ? (
         <div className={styles["single-post"]}>
           <div className={styles["single-post__back"]}>
-            <Link to="/posts">
-              <IoIosArrowBack size="1.5rem" color="#e8aaa3" />
-            </Link>
+            <IoIosArrowBack
+              size="1.5rem"
+              color="#e8aaa3"
+              onClick={() => navigate(-1)}
+            />
           </div>
-          <div className={styles["single-post__author"]}>
-            投稿者 {itemData.user.name}
+          <div className={styles["single-post__header"]}>
+            <div className={styles["single-post__author"]}>
+              投稿者 {itemData.user.name}
+            </div>
+            {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
+            {itemData.user_id == loggedInUserId && (
+              <div className={styles["button-container"]}>
+              
+                  <EditButton itemId={item_id} />
+              </div>
+            )}
           </div>
           {itemData.image_url && (
             <img
@@ -97,7 +109,7 @@ const SinglePost = () => {
             <p className={styles["single-post__category"]}></p>
             {itemData.created_at && (
               <p className={styles["single-post__timestamp"]}>
-                投稿日時: {formatCreatedAt(itemData.created_at)}
+                投稿日: {formatCreatedAt(itemData.created_at)}
               </p>
             )}
 
@@ -108,10 +120,10 @@ const SinglePost = () => {
             )}
           </div>
           <div className={styles["single-post__icons"]}>
-            <AiOutlineHeart size="1.5rem" color="#e8aaa3" />
-            <BsPinAngle size="1.5rem" color="#e8aaa3" />
-            <AiOutlineComment size="1.5rem" color="#e8aaa3" />
+            <LikeButton itemId={item_id} />
+            <FavoriteButton itemId={item_id} />
           </div>
+          <LikeNotification itemId={item_id} />
           <p className={styles["single-post__title"]}>{itemData.title}</p>
           {itemData.description && (
             <p className={styles["single-post__description"]}>
@@ -133,16 +145,10 @@ const SinglePost = () => {
           )}
           {itemData.memo && (
             <p className={styles["single-post__memo"]}>
-              メモ<br/>
+              メモ
+              <br />
               {itemData.memo}
             </p>
-          )}
-          {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
-          {itemData.user_id == loggedInUserId && (
-            <div className={styles["button-container"]}>
-              <EditButton itemId={item_id} />
-              <DeleteButton itemId={item_id} />
-            </div>
           )}
         </div>
       ) : (

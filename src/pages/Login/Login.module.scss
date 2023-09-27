@@ -14,7 +14,6 @@ input {
   margin-top: 2rem;
 }
 
-
 .button {
   width: 9rem;
   padding: 0.5rem;
@@ -26,4 +25,28 @@ input {
   justify-content: center;
   background-color: #e8aaa3;
   color: white;
+}
+
+.login__error__message {
+  color: #d65757;
+  font-size: 0.7rem;
+  padding: 0px;
+  margin-top: 0;
+}
+
+.form__error {
+  color: #d65757;
+  font-size: 0.7rem;
+  padding: 0px;
+  margin-top: 0;
+}
+
+.login {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

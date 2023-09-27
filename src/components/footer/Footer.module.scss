@@ -1,0 +1,37 @@
+// Footer.module.scss
+.individualIconStyle {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.footerStyles {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  color: #604461;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-container__icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: #e8aaa3;
+}
+
+.icon-container__label {
+  font-size: 0.6rem; /* 文字を小さめに */
+  margin-top: 4px; /* アイコンとの間隔 */
+}
