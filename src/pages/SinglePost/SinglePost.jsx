@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import EditButton from "../../components/common/EditButton/EditButton";
 import styles from "./SinglePost.module.scss";
@@ -18,7 +18,7 @@ const SinglePost = () => {
   const [itemData, setItemData] = useState(null);
   // CookieからログインユーザーのIDを取得
   const loggedInUserId = Cookies.get("user_id");
-
+  const [isLoading, setIsLoading] = useState(true);
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   const navigate = useNavigate();
@@ -30,14 +30,20 @@ const SinglePost = () => {
         const response = await axios.get(`${baseURL}/api/posts/${item_id}`);
         const responseData = response.data;
         setItemData(responseData);
+        setIsLoading(false);
         console.log("res", responseData);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [item_id]);
+
+  if (isLoading) {
+    return <p className={styles["loading-text"]}>loading...</p>;
+  }
 
   // 与えられた日付を整形して表示
   const formatCreatedAt = (createdAt) => {
@@ -77,83 +83,78 @@ const SinglePost = () => {
   // itemDataが存在する場合、取得した投稿データをもとに内容を表示
   return (
     <>
-      {itemData ? (
-        <div className={styles["single-post"]}>
-          <div className={styles["single-post__back"]}>
-            <IoIosArrowBack
-              size="1.5rem"
-              color="#e8aaa3"
-              onClick={() => navigate(-1)}
-            />
+      <div className={styles["single-post"]}>
+        <div className={styles["single-post__back"]}>
+          <IoIosArrowBack
+            size="1.5rem"
+            color="#e8aaa3"
+            onClick={() => navigate(-1)}
+          />
+        </div>
+        <div className={styles["single-post__header"]}>
+          <div className={styles["single-post__author"]}>
+            <Link to={`/users/${itemData.user_id}`}>{itemData.user.name}</Link>
           </div>
-          <div className={styles["single-post__header"]}>
-            <div className={styles["single-post__author"]}>
-              投稿者 {itemData.user.name}
+          {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
+          {itemData.user_id == loggedInUserId && (
+            <div className={styles["button-container"]}>
+              <EditButton itemId={item_id} />
             </div>
-            {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
-            {itemData.user_id == loggedInUserId && (
-              <div className={styles["button-container"]}>
-              
-                  <EditButton itemId={item_id} />
-              </div>
-            )}
-          </div>
-          {itemData.image_url && (
-            <img
-              src={`${baseURL}/${itemData.image_url}`}
-              alt="アイテム画像"
-              className={styles["single-post__image"]}
-            />
-          )}
-          <div className={styles["single-post__category-container"]}>
-            <p className={styles["single-post__category"]}></p>
-            {itemData.created_at && (
-              <p className={styles["single-post__timestamp"]}>
-                投稿日: {formatCreatedAt(itemData.created_at)}
-              </p>
-            )}
-
-            {itemData.category_id && (
-              <Tag color={getCategoryColor(itemData.category.name)}>
-                {itemData.category.name}
-              </Tag>
-            )}
-          </div>
-          <div className={styles["single-post__icons"]}>
-            <LikeButton itemId={item_id} />
-            <FavoriteButton itemId={item_id} />
-          </div>
-          <LikeNotification itemId={item_id} />
-          <p className={styles["single-post__title"]}>{itemData.title}</p>
-          {itemData.description && (
-            <p className={styles["single-post__description"]}>
-              {itemData.description}
-            </p>
-          )}
-          {itemData.reference_url && (
-            <p className={styles["single-post__reference"]}>
-              参考URL
-              <a
-                href={itemData.reference_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles["single-post__reference-link"]}
-              >
-                {truncatedText(itemData.reference_url, 30)}
-              </a>
-            </p>
-          )}
-          {itemData.memo && (
-            <p className={styles["single-post__memo"]}>
-              メモ
-              <br />
-              {itemData.memo}
-            </p>
           )}
         </div>
-      ) : (
-        <p>データをロード中...</p>
-      )}
+        {itemData.image_url && (
+          <img
+            src={`${baseURL}/${itemData.image_url}`}
+            alt="アイテム画像"
+            className={styles["single-post__image"]}
+          />
+        )}
+        <div className={styles["single-post__category-container"]}>
+          <p className={styles["single-post__category"]}></p>
+          {itemData.created_at && (
+            <p className={styles["single-post__timestamp"]}>
+              投稿日: {formatCreatedAt(itemData.created_at)}
+            </p>
+          )}
+
+          {itemData.category_id && (
+            <Tag color={getCategoryColor(itemData.category.name)}>
+              {itemData.category.name}
+            </Tag>
+          )}
+        </div>
+        <div className={styles["single-post__icons"]}>
+          <LikeButton itemId={item_id} />
+          <FavoriteButton itemId={item_id} />
+        </div>
+        <LikeNotification itemId={item_id} />
+        <p className={styles["single-post__title"]}>{itemData.title}</p>
+        {itemData.description && (
+          <p className={styles["single-post__description"]}>
+            {itemData.description}
+          </p>
+        )}
+        {itemData.reference_url && (
+          <p className={styles["single-post__reference"]}>
+            参考URL
+            <a
+              href={itemData.reference_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles["single-post__reference-link"]}
+            >
+              {truncatedText(itemData.reference_url, 30)}
+            </a>
+          </p>
+        )}
+        {itemData.memo && (
+          <p className={styles["single-post__memo"]}>
+            メモ
+            <br />
+            {itemData.memo}
+          </p>
+        )}
+      </div>
     </>
   );
 };
