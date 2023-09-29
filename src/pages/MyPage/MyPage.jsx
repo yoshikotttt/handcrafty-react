@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import styles from "./MyPage.module.scss";
 import { Link, useParams } from "react-router-dom";
+import FollowButton from "../../components/common/FollowButton/FollowButton";
 
 const MyPage = () => {
   const [items, setItems] = useState([]);
@@ -45,6 +46,7 @@ const MyPage = () => {
           {" "}
           {user ? `${user.name}のページ` : "マイページ"}
         </h2>
+        <FollowButton userId={user.id} />
         {items.length === 0 ? (
           <p className={styles["post-list__no-items"]}>投稿はありません</p>
         ) : (
