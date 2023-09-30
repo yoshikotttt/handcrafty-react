@@ -19,6 +19,7 @@ import MyPage from "./pages/MyPage/MyPage";
 import Settings from "./pages/Settings/Settings";
 import Favorites from "./pages/Favorites/Favorites";
 import Likes from "./pages/Likes/Likes";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
    
@@ -36,6 +37,7 @@ function App() {
           {/* 関数内でitemIdと統一してあるので、item_idではなくitemIdとする */}
           <Route path="/posts/:itemId/likes" element={<Likes />}></Route>
           <Route path="/users/me" element={<MyPage />}></Route>
+          <Route path="/users/profile" element={<Profile/>}></Route>
           {/* 関数内でuserIdと統一してあるので、user_idではなくuserIdとする */}
           <Route path="/users/:userId" element={<MyPage />}></Route>
           <Route path="/settings" element={<Settings />}></Route>

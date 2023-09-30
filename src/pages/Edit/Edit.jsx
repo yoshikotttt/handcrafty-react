@@ -102,10 +102,8 @@ const Edit = () => {
       );
       formData.append("image_url", capturedImage);
     }
-
     // console.log("FormData being sent:", [...formData.entries()]); // ここで formData の中身をログ出力
-
-    
+  
     // PUTメソッドを使用してデータを更新するため、ヘッダーにX-HTTP-Method-Overrideを追加
     try {
       const response = await axios.post(
