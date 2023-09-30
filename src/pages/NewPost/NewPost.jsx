@@ -15,7 +15,7 @@ const NewPost = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onChange" });
+  } = useForm({ mode: "onSubmit" });
   const navigate = useNavigate();
   const confirmModal = useConfirmModal();
 

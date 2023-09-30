@@ -4,10 +4,16 @@ import { useEffect, useState } from "react";
 import styles from "./MyPage.module.scss";
 import { Link, useParams } from "react-router-dom";
 import FollowButton from "../../components/common/FollowButton/FollowButton";
+import ProfileButton from "../../components/common/ProfileButton/ProfileButton";
+import Counts from "../../components/common/Counts/Counts";
 
 const MyPage = () => {
   const [items, setItems] = useState([]);
-   const [user, setUser] = useState([]);
+  const [user, setUser] = useState([]);
+  const [postsCount, setPostsCount] = useState(0);
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+  const [isOwnProfile, setIsOwnProfile] = useState();
   // ローディングの表示（初期値は 読み込み中...が出る）
   const [isLoading, setIsLoading] = useState(true);
   const token = Cookies.get("token");
@@ -18,15 +24,20 @@ const MyPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}${endpoint}`, {
+        const profileResponse = await axios.get(`${baseURL}${endpoint}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setItems(response.data.items);
-        setUser(response.data.user);
+        setItems(profileResponse.data.items);
+        setUser(profileResponse.data.user);
+        setIsOwnProfile(profileResponse.data.isOwnProfile);
+        setPostsCount(profileResponse.data.postsCount);
+        setFollowersCount(profileResponse.data.followersCount);
+        setFollowingCount(profileResponse.data.followingCount);
+
         setIsLoading(false);
-        // console.log(response.data);
+        console.log(profileResponse.data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
         setIsLoading(false);
@@ -46,7 +57,20 @@ const MyPage = () => {
           {" "}
           {user ? `${user.name}のページ` : "マイページ"}
         </h2>
-        <FollowButton userId={user.id} />
+        {isOwnProfile && <ProfileButton />}
+        {!isOwnProfile && <FollowButton userId={user.id} />}
+        <Counts
+          postsCount={postsCount}
+          followersCount={followersCount}
+          followingCount={followingCount}
+        />
+        {user.avatar_url && (
+          <img src={`${baseURL}/${user.avatar_url}`} alt="プロフィール画像" />
+        )}
+
+        <div>自己紹介</div>
+        <div>{user.bio}</div>
+
         {items.length === 0 ? (
           <p className={styles["post-list__no-items"]}>投稿はありません</p>
         ) : (
