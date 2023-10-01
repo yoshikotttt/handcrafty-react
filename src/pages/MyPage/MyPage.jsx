@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import FollowButton from "../../components/common/FollowButton/FollowButton";
 import ProfileButton from "../../components/common/ProfileButton/ProfileButton";
 import Counts from "../../components/common/Counts/Counts";
+import { PiFinnTheHumanLight } from "react-icons/pi";
 
 const MyPage = () => {
   const [items, setItems] = useState([]);
@@ -58,25 +59,35 @@ const MyPage = () => {
       <div className={styles["post-list"]}>
         <h2 className={styles["post-list__title"]}>
           {" "}
-          {user ? `${user.name}のページ` : "マイページ"}
+          {user ? `${user.name}さんのページ` : "マイページ"}
         </h2>
-        {isOwnProfile && <ProfileButton />}
-        {!isOwnProfile && <FollowButton userId={user.id} />}
-        {user && (
-          <Counts
-            userId={userIdForCounts}
-            postsCount={postsCount}
-            followersCount={followersCount}
-            followingCount={followingCount}
-          />
-        )}
+        <div className={styles["post-list__counts-container"]}>
+          {user.avatar_url ? (
+            <img
+              src={`${baseURL}/${user.avatar_url}`}
+              alt="プロフィール画像"
+              className={styles["post-list__avatar"]}
+            />
+          ) : (
+            <PiFinnTheHumanLight size="4rem" className={styles["post-list__avatar"]} />
+          )}
 
-        {user.avatar_url && (
-          <img src={`${baseURL}/${user.avatar_url}`} alt="プロフィール画像" />
-        )}
+          {user && (
+            <Counts
+              userId={userIdForCounts}
+              postsCount={postsCount}
+              followersCount={followersCount}
+              followingCount={followingCount}
+            />
+          )}
+        </div>
+        <div className={styles["post-list__buttons"]}>
+          {isOwnProfile && <ProfileButton />}
+          {!isOwnProfile && <FollowButton userId={user.id} />}
+        </div>
 
-        <div>自己紹介</div>
-        <div>{user.bio}</div>
+        {/* <div className={styles["post-list__bio-title"]}>自己紹介</div> */}
+        <div className={styles["post-list__bio-content"]}>{user.bio}</div>
 
         {items.length === 0 ? (
           <p className={styles["post-list__no-items"]}>投稿はありません</p>

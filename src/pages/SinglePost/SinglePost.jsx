@@ -10,6 +10,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import LikeButton from "../../components/common/LikeButton/LikeButton";
 import FavoriteButton from "../../components/common/FavoriteButton/FavoriteButton";
 import LikeNotification from "../../components/common/LikeNotification/LikeNotification";
+import { PiFinnTheHumanDuotone } from "react-icons/pi";
+
 
 const SinglePost = () => {
   // URLからitem_idを取得
@@ -30,7 +32,7 @@ const SinglePost = () => {
         const responseData = response.data;
         setItemData(responseData);
         setIsLoading(false);
-        // console.log("res", responseData);
+        console.log("res", responseData);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
         setIsLoading(false);
@@ -100,9 +102,27 @@ const SinglePost = () => {
           />
         </div>
         <div className={styles["single-post__header"]}>
-          <div className={styles["single-post__author"]}>
-            <Link to={linkDestination}>{itemData.user.name}</Link>
-          </div>
+          <Link
+            to={linkDestination}
+            className={styles["single-post__author-link"]}
+          >
+            <div className={styles["single-post__author"]}>
+              {itemData.user.avatar_url ? (
+                <img
+                  src={`${baseURL}/${itemData.user.avatar_url}`}
+                  alt="プロフィール画像"
+                  className={styles["post-list__avatar"]}
+                />
+              ) : (
+                <PiFinnTheHumanDuotone
+                  size="2rem"
+                  className={styles["post-list__avatar"]}
+                />
+              )}
+              <span>{itemData.user.name}</span>
+            </div>
+          </Link>
+          <div></div>
           {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
           {itemData.user_id == loggedInUserId && (
             <div className={styles["button-container"]}>

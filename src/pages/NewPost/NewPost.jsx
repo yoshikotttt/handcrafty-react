@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
 import { useNavigate } from "react-router-dom";
 import useConfirmModal from "../../hooks/useConfirmModal";
+import BackButton from "../../components/common/BackButton";
 
 // 新規投稿フォーム、入力されたデータは指定されたAPIエンドポイントに送信
 // ユーザーは画像をアップロードするか、カメラを使用して画像をキャプチャすることができます
@@ -118,6 +119,7 @@ const NewPost = () => {
 
   return (
     <>
+    <BackButton/>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         {isCameraVisible ? (
           <div className={styles.form__field}>
