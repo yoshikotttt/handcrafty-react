@@ -1,9 +1,22 @@
+/* General styles */
 ul {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0px;
   padding: 0;
+}
+
+li {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* PC */
@@ -14,25 +27,14 @@ ul {
 
   img {
     max-width: 100%;
-    height: auto; /* 高さをautoに変更 */
-    display: block; /* 追加 */
+    height: auto;
+    display: block;
   }
 }
 
-li {
-  padding: 0px;
-  margin: 0px;
-  box-sizing: border-box; /* 追加 */
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
+/* Specific components or elements */
 .post-list {
-  /* ... */
+
 }
 
 .post-list__title {
@@ -41,6 +43,19 @@ img {
   color: #604461;
   text-align: center;
   margin: 2rem auto 2rem;
+}
+
+.post-list__avatar {
+  width: 3.5rem;
+  margin-right: 60px;
+  border: 0.5px solid #d18d8d;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.post-list__bio-content {
+  font-size: 0.9rem;
+  padding: 2rem;
 }
 
 .post-list__items {
@@ -59,8 +74,8 @@ img {
   width: 100%;
   height: auto;
   aspect-ratio: 1;
-  object-fit: cover; /* 画像がコンテナに収まるようにトリミングします */
-  object-position: center center; /* 画像の中心をコンテナの中心に合わせます */
+  object-fit: cover;
+  object-position: center center;
 }
 
 .loading-text {
@@ -74,4 +89,13 @@ img {
   display: flex;
   justify-content: center;
   margin-top: 100px;
+}
+
+.post-list__counts-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 0 20px;
+  margin-bottom: 1rem;
+  
 }

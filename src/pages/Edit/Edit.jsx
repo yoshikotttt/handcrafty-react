@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
 import { useNavigate, useParams } from "react-router-dom";
 import DeleteButton from "../../components/common/DeleteButton/DeleteButton";
+import BackButton from "../../components/common/BackButton";
 
 const Edit = () => {
   const [itemData, setItemData] = useState(null);
@@ -102,10 +103,8 @@ const Edit = () => {
       );
       formData.append("image_url", capturedImage);
     }
-
     // console.log("FormData being sent:", [...formData.entries()]); // ここで formData の中身をログ出力
-
-    
+  
     // PUTメソッドを使用してデータを更新するため、ヘッダーにX-HTTP-Method-Overrideを追加
     try {
       const response = await axios.post(
@@ -134,6 +133,7 @@ const Edit = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <BackButton/>
         <div className={styles.form__field}>
           {!isCameraVisible ? (
             capturedImage ? (
@@ -141,14 +141,14 @@ const Edit = () => {
                 src={`${baseURL}/${itemData.image_url}`}
                 alt="キャプチャした画像"
                 className={styles.form__image}
-                style={{ width: "200px", height: "200px" }}
+                // style={{ width: "200px", height: "200px" }}
               />
             ) : image ? (
               <img
                 src={URL.createObjectURL(image)}
                 alt="アイテム画像"
                 className={styles.form__image}
-                style={{ width: "200px", height: "200px" }}
+                // style={{ width: "200px", height: "200px" }}
               />
             ) : (
               imageURL && (
@@ -156,7 +156,7 @@ const Edit = () => {
                   src={`${baseURL}/${itemData.image_url}`}
                   alt="元のアイテム画像"
                   className={styles.form__image}
-                  style={{ width: "200px", height: "200px" }}
+                  // style={{ width: "200px", height: "200px" }}
                 />
               )
             )

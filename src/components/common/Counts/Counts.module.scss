@@ -1,0 +1,22 @@
+.counts-container {
+  display: flex;
+
+}
+
+.count-item {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px;
+
+ 
+}
+
+ .count-number {
+    font-weight: bold;
+  }
+
+  .count-label {
+    font-size: 0.8rem;
+  }

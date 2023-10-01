@@ -18,11 +18,11 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     axios
       .post(`${baseURL}/api/login`, data)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         // サーバーからのレスポンスデータからトークンを抽出
         const receivedToken = response.data.token;
         const receivedId = response.data.user.id;
@@ -88,7 +88,10 @@ const Login = () => {
         </button>
       </form>
       <div className={styles["register"]}>
-        新規登録は<Link to="/register">こちら</Link>
+        新規登録は
+        <Link to="/register">
+          <span className={styles["login__link"]}>こちら</span>
+        </Link>
       </div>
     </div>
   );

@@ -29,8 +29,12 @@
 }
 
 .single-post__author {
+  display: flex;
+  align-items: center;
   font-weight: bold;
   margin-bottom: 1rem;
+  gap: 1rem;
+  border-radius: 50%;
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -41,6 +45,13 @@
     font-size: 18px;
     /* PC用のスタイル */
   }
+}
+
+.post-list__avatar {
+  border-radius: 50%;
+  width: 2.5rem;
+  border: 0.5px solid #d18d8d;
+  background-color: #fff;
 }
 
 .single-post__title {
@@ -124,3 +135,11 @@
 .single-post__back {
   margin-bottom: 2rem;
 }
+
+.loading-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+

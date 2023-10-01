@@ -2,42 +2,93 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import styles from "./MyPage.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import FollowButton from "../../components/common/FollowButton/FollowButton";
+import ProfileButton from "../../components/common/ProfileButton/ProfileButton";
+import Counts from "../../components/common/Counts/Counts";
+import { PiFinnTheHumanLight } from "react-icons/pi";
 
 const MyPage = () => {
   const [items, setItems] = useState([]);
+  const [user, setUser] = useState([]);
+  const [postsCount, setPostsCount] = useState(0);
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+  const [isOwnProfile, setIsOwnProfile] = useState();
   // ローディングの表示（初期値は 読み込み中...が出る）
   const [isLoading, setIsLoading] = useState(true);
   const token = Cookies.get("token");
   const baseURL = import.meta.env.VITE_API_BASE_URL;
+  const { userId } = useParams();
+  const endpoint = userId ? `/api/users/${userId}` : `/api/users/me`;
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}/api/users/me`, {
+        const profileResponse = await axios.get(`${baseURL}${endpoint}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setItems(response.data);
+        setItems(profileResponse.data.items);
+        setUser(profileResponse.data.user);
+        setIsOwnProfile(profileResponse.data.isOwnProfile);
+        setPostsCount(profileResponse.data.postsCount);
+        setFollowersCount(profileResponse.data.followersCount);
+        setFollowingCount(profileResponse.data.followingCount);
+
         setIsLoading(false);
-        // console.log(response.data);
+        // console.log(profileResponse.data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
         setIsLoading(false);
       }
     };
     fetchData();
-  }, []); // 第2引数が空の配列なので、初回のレンダリング時に1度だけ実行されます
+  }, [endpoint]); // 第2引数が空の配列なので、初回のレンダリング時に1度だけ実行されます
+
+  const userIdForCounts = isOwnProfile ? "me" : user.id;
 
   if (isLoading) {
-   return <p className={styles["loading-text"]}>loading...</p>;
+    return <p className={styles["loading-text"]}>loading...</p>;
   }
 
   return (
     <>
       <div className={styles["post-list"]}>
-        <h2 className={styles["post-list__title"]}>My Page</h2>
+        <h2 className={styles["post-list__title"]}>
+          {" "}
+          {user ? `${user.name}さんのページ` : "マイページ"}
+        </h2>
+        <div className={styles["post-list__counts-container"]}>
+          {user.avatar_url ? (
+            <img
+              src={`${baseURL}/${user.avatar_url}`}
+              alt="プロフィール画像"
+              className={styles["post-list__avatar"]}
+            />
+          ) : (
+            <PiFinnTheHumanLight size="4rem" className={styles["post-list__avatar"]} />
+          )}
+
+          {user && (
+            <Counts
+              userId={userIdForCounts}
+              postsCount={postsCount}
+              followersCount={followersCount}
+              followingCount={followingCount}
+            />
+          )}
+        </div>
+        <div className={styles["post-list__buttons"]}>
+          {isOwnProfile && <ProfileButton />}
+          {!isOwnProfile && <FollowButton userId={user.id} />}
+        </div>
+
+        {/* <div className={styles["post-list__bio-title"]}>自己紹介</div> */}
+        <div className={styles["post-list__bio-content"]}>{user.bio}</div>
+
         {items.length === 0 ? (
           <p className={styles["post-list__no-items"]}>投稿はありません</p>
         ) : (
