@@ -73,10 +73,19 @@ const Profile = () => {
       alert("プロフィールが更新されました");
       navigate(-1);
     } catch (error) {
-      console.error(
-        "Failed to update profile",
-        error.response?.data || error.message
-      );
+       if (
+         error.response &&
+         error.response.data &&
+         error.response.data.errors
+       ) {
+         const errorMessage = error.response.data.errors.avatar_url[0];
+         alert(errorMessage);
+       } else {
+         console.error(
+           "Failed to update profile",
+           error.response?.data || error.message
+         );
+       }
     }
   };
 
