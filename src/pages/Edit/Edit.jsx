@@ -139,14 +139,14 @@ const Edit = () => {
                 src={`${baseURL}/${itemData.image_url}`}
                 alt="キャプチャした画像"
                 className={styles.form__image}
-                style={{ width: "200px", height: "200px" }}
+                // style={{ width: "200px", height: "200px" }}
               />
             ) : image ? (
               <img
                 src={URL.createObjectURL(image)}
                 alt="アイテム画像"
                 className={styles.form__image}
-                style={{ width: "200px", height: "200px" }}
+                // style={{ width: "200px", height: "200px" }}
               />
             ) : (
               imageURL && (
@@ -154,7 +154,7 @@ const Edit = () => {
                   src={`${baseURL}/${itemData.image_url}`}
                   alt="元のアイテム画像"
                   className={styles.form__image}
-                  style={{ width: "200px", height: "200px" }}
+                  // style={{ width: "200px", height: "200px" }}
                 />
               )
             )

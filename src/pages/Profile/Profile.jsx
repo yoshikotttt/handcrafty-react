@@ -55,10 +55,10 @@ const Profile = () => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("bio", data.bio);
-      if (data.avatar_url) {
+      if (selectedFile) {
         formData.append("avatar_url", selectedFile);
       }
-      console.log("FormData being sent:", [...formData.entries()]);
+    //   console.log("FormData being sent:", [...formData.entries()]);
 
       await axios.post(`${baseURL}/api/users/profile`, formData, {
         headers: {
@@ -68,7 +68,7 @@ const Profile = () => {
         },
       });
 
-      alert("Profile updated successfully!");
+      alert("プロフィールが更新されました");
     } catch (error) {
       console.error(
         "Failed to update profile",

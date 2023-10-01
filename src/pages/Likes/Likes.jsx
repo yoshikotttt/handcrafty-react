@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./Likes.module.scss";
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -10,6 +10,7 @@ const Likes = () => {
   const [error, setError] = useState(null);
   const baseURL = import.meta.env.VITE_API_BASE_URL;
   const token = Cookies.get("token");
+  const loggedInUserId = Cookies.get("user_id");
   const { itemId } = useParams();
   const navigate = useNavigate();
 
@@ -46,11 +47,21 @@ const Likes = () => {
           <div>{error}</div>
         ) : (
           <ul className={styles["ulStyle"]}>
-            {likesData.map((like) => (
-              <li key={like.user_id} className={styles["liStyle"]}>
-                {like.user_name}さんが「いいね」しました
-              </li>
-            ))}
+            {likesData.map((like) => {
+              const linkDestination =
+                //型が違うので == 修正必要
+                loggedInUserId == like.user_id
+                  ? "/users/me"
+                  : `/users/${like.user_id}`;
+
+              return (
+                <li className={styles["liStyle"]} key={like.user_id}>
+                  <Link to={linkDestination}>
+                    {like.user_name}さんが「いいね」しました
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

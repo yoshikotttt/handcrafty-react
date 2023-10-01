@@ -21,6 +21,7 @@ const MyPage = () => {
   const { userId } = useParams();
   const endpoint = userId ? `/api/users/${userId}` : `/api/users/me`;
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,7 +38,7 @@ const MyPage = () => {
         setFollowingCount(profileResponse.data.followingCount);
 
         setIsLoading(false);
-        console.log(profileResponse.data);
+        // console.log(profileResponse.data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
         setIsLoading(false);
@@ -45,6 +46,8 @@ const MyPage = () => {
     };
     fetchData();
   }, [endpoint]); // 第2引数が空の配列なので、初回のレンダリング時に1度だけ実行されます
+
+  const userIdForCounts = isOwnProfile ? "me" : user.id;
 
   if (isLoading) {
     return <p className={styles["loading-text"]}>loading...</p>;
@@ -59,11 +62,15 @@ const MyPage = () => {
         </h2>
         {isOwnProfile && <ProfileButton />}
         {!isOwnProfile && <FollowButton userId={user.id} />}
-        <Counts
-          postsCount={postsCount}
-          followersCount={followersCount}
-          followingCount={followingCount}
-        />
+        {user && (
+          <Counts
+            userId={userIdForCounts}
+            postsCount={postsCount}
+            followersCount={followersCount}
+            followingCount={followingCount}
+          />
+        )}
+
         {user.avatar_url && (
           <img src={`${baseURL}/${user.avatar_url}`} alt="プロフィール画像" />
         )}
