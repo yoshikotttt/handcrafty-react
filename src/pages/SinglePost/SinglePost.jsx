@@ -20,7 +20,6 @@ const SinglePost = () => {
   const loggedInUserId = Cookies.get("user_id");
   const [isLoading, setIsLoading] = useState(true);
   const baseURL = import.meta.env.VITE_API_BASE_URL;
-
   const navigate = useNavigate();
 
   //マウント時、指定したitem_idをもとにAPIから投稿データを取得してitemDataにセット
@@ -31,7 +30,7 @@ const SinglePost = () => {
         const responseData = response.data;
         setItemData(responseData);
         setIsLoading(false);
-        console.log("res", responseData);
+        // console.log("res", responseData);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
         setIsLoading(false);
@@ -41,6 +40,7 @@ const SinglePost = () => {
     fetchData();
   }, [item_id]);
 
+  console.log()
   if (isLoading) {
     return <p className={styles["loading-text"]}>loading...</p>;
   }
@@ -80,6 +80,14 @@ const SinglePost = () => {
     return text.slice(0, maxLength) + "...";
   };
 
+  //投稿者名のリンク先を、ログインユーザーと一致するかどうかで分ける データの型が一致していないので修正が必要
+       
+
+  const linkDestination =
+    loggedInUserId == itemData.user_id
+      ? "/users/me"
+      : `/users/${itemData.user_id}`;
+
   // itemDataが存在する場合、取得した投稿データをもとに内容を表示
   return (
     <>
@@ -93,7 +101,7 @@ const SinglePost = () => {
         </div>
         <div className={styles["single-post__header"]}>
           <div className={styles["single-post__author"]}>
-            <Link to={`/users/${itemData.user_id}`}>{itemData.user.name}</Link>
+            <Link to={linkDestination}>{itemData.user.name}</Link>
           </div>
           {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
           {itemData.user_id == loggedInUserId && (

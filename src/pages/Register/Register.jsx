@@ -111,7 +111,10 @@ const Register = () => {
        </button>
      </form>
      <div className={styles.register}>
-       ログインは<Link to="/login">こちら</Link>
+       ログインは
+       <Link to="/login">
+         <span className={styles["form__link"]}>こちら</span>
+       </Link>
      </div>
    </div>
  );
