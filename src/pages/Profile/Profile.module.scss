@@ -4,3 +4,68 @@
   align-items: center;
   height: 100vh;
 }
+
+.profile-edit {
+  margin: 5px;
+}
+
+.profile-edit__back-btn {
+}
+
+.profile-edit__title {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.profile-edit__avatar {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-edit__avatar-image {
+    border: 0.5px solid #d18d8d;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover; // 画像をコンテナの大きさに合わせてトリミング
+  margin: 0 auto;
+}
+
+.profile-edit__avatar-placeholder {
+}
+
+.profile-edit__form {
+  margin: 20px 20px 150px 20px;
+
+}
+
+.profile-edit__form-group {
+  margin-bottom: 10px;
+  display: flex;
+  flex-flow: column;
+}
+
+.profile-edit__label {
+  font-size: 0.8rem;
+}
+
+.profile-edit__input {
+}
+
+.profile-edit__textarea {
+}
+
+.profile-edit__input-file {
+}
+
+.profile-edit__submit-btn {
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 320px) {
+  .profile-edit__form {
+    margin-bottom: 220px; // 必要に応じて値を調整
+  }
+}

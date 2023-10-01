@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import Camera from "../../components/common/Camera/Camera";
 import { useNavigate, useParams } from "react-router-dom";
 import DeleteButton from "../../components/common/DeleteButton/DeleteButton";
+import BackButton from "../../components/common/BackButton";
 
 const Edit = () => {
   const [itemData, setItemData] = useState(null);
@@ -132,6 +133,7 @@ const Edit = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <BackButton/>
         <div className={styles.form__field}>
           {!isCameraVisible ? (
             capturedImage ? (

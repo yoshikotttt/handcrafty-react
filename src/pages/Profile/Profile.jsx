@@ -3,7 +3,9 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { PiFinnTheHumanDuotone } from "react-icons/pi";
-import styles from "./Profile.module.scss"
+import styles from "./Profile.module.scss";
+import { useNavigate } from "react-router-dom";
+import BackButton from "../../components/common/BackButton";
 
 const Profile = () => {
   const [userData, setUserData] = useState();
@@ -12,7 +14,7 @@ const Profile = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
- 
+  const navigate = useNavigate();
 
   const { register, handleSubmit, setValue } = useForm({
     mode: "onSubmit",
@@ -37,7 +39,7 @@ const Profile = () => {
         setValue("avatar_url", response.data.avatar_url || "");
 
         setIsLoading(false);
-        console.log("res", responseData);
+        // console.log("res", responseData);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
         setIsLoading(false);
@@ -46,9 +48,9 @@ const Profile = () => {
     fetchData();
   }, [setValue, baseURL, token]);
 
-   if (isLoading) {
-     return <p className={styles["loading-text"]}>loading...</p>;
-   }
+  if (isLoading) {
+    return <p className={styles["loading-text"]}>loading...</p>;
+  }
 
   const onSubmit = async (data) => {
     try {
@@ -58,7 +60,7 @@ const Profile = () => {
       if (selectedFile) {
         formData.append("avatar_url", selectedFile);
       }
-    //   console.log("FormData being sent:", [...formData.entries()]);
+      //   console.log("FormData being sent:", [...formData.entries()]);
 
       await axios.post(`${baseURL}/api/users/profile`, formData, {
         headers: {
@@ -69,6 +71,7 @@ const Profile = () => {
       });
 
       alert("プロフィールが更新されました");
+      navigate(-1);
     } catch (error) {
       console.error(
         "Failed to update profile",
@@ -88,44 +91,76 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <h2>プロフィール編集</h2>
-      {previewImage ? (
-        <img src={previewImage} alt="avatar画像" width={100} />
-      ) : userData?.avatar_url ? (
-        <img
-          src={`${baseURL}/${userData.avatar_url}`}
-          alt="avatar画像"
-          width={100}
-        />
-      ) : (
-        <PiFinnTheHumanDuotone size="4rem" />
-      )}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="name">ユーザー名</label>
-          <input type="text" {...register("name")} />
-        </div>
-        <div>
-          <label htmlFor="bio">自己紹介文</label>
-          <textarea
-            name="bio"
-            id="bio"
-            cols="30"
-            rows="10"
-            {...register("bio")}
+    <div className={styles["profile-edit"]}>
+      <div className={styles["profile-edit__back-btn"]}>
+        <BackButton />
+      </div>
+      <h2 className={styles["profile-edit__title"]}>プロフィール編集</h2>
+      <div className={styles["profile-edit__avatar"]}>
+        {previewImage ? (
+          <img
+            src={previewImage}
+            alt="avatar画像"
+            className={styles["profile-edit__avatar-image"]}
           />
-        </div>
-        <div>
-          <label htmlFor="avatar_url">画像</label>
+        ) : userData?.avatar_url ? (
+          <img
+            src={`${baseURL}/${userData.avatar_url}`}
+            alt="avatar画像"
+            className={styles["profile-edit__avatar-image"]}
+          />
+        ) : (
+          <PiFinnTheHumanDuotone
+            size="4rem"
+            className={styles["profile-edit__avatar-placeholder"]}
+          />
+        )}
+      </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles["profile-edit__form"]}
+      >
+        <div className={styles["profile-edit__form-group"]}>
+          <label htmlFor="avatar_url" className={styles["profile-edit__label"]}>
+            プロフィール画像
+          </label>
           <input
             type="file"
             {...register("avatar_url")}
             accept="image/*"
             onChange={handleImageChange}
+            className={styles["profile-edit__input-file"]}
           />
         </div>
-        <button type="submit">保存する</button>
+        <div className={styles["profile-edit__form-group"]}>
+          <label htmlFor="name" className={styles["profile-edit__label"]}>
+            ユーザー名
+          </label>
+          <input
+            type="text"
+            {...register("name")}
+            className={styles["profile-edit__input"]}
+          />
+        </div>
+        <div className={styles["profile-edit__form-group"]}>
+          <label htmlFor="bio" className={styles["profile-edit__label"]}>
+            自己紹介文
+          </label>
+          <textarea
+            name="bio"
+            id="bio"
+            cols="30"
+            rows="8"
+            {...register("bio")}
+            className={styles["profile-edit__textarea"]}
+          />
+        </div>
+        <button
+          type="submit"
+          className={styles["profile-edit__submit-btn"]}
+        >
+          保存する 
+        </button>
       </form>
     </div>
   );

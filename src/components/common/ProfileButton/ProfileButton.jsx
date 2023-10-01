@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const ProfileButton = () => {
   return (
     <Link to="/users/profile">
-      <button>ProfileButton</button>
+      <button>プロフィールを編集</button>
     </Link>
   );
 };
