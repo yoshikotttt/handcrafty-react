@@ -50,8 +50,10 @@
 .post-list__avatar {
   border-radius: 50%;
   width: 2.5rem;
+  height: 2.5rem;
   border: 0.5px solid #d18d8d;
   background-color: #fff;
+  object-fit: cover; // 画像をコンテナのサイズに合わせてトリミング
 }
 
 .single-post__title {
@@ -142,4 +144,3 @@
   align-items: center;
   height: 100vh;
 }
-
