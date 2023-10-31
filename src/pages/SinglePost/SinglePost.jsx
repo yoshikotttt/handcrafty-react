@@ -33,7 +33,7 @@ const SinglePost = () => {
         const responseData = response.data;
         setItemData(responseData);
         setIsLoading(false);
-        console.log("res", responseData);
+        // console.log("res", responseData);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
         setIsLoading(false);
@@ -43,9 +43,11 @@ const SinglePost = () => {
     fetchData();
   }, [item_id]);
 
-  console.log();
-  if (isLoading) {
-    return <p className={styles["loading-text"]}>loading...</p>;
+  console.log("itemData:", itemData);
+  console.log("loggedInUserId:", loggedInUserId);
+
+  if (isLoading || !itemData || typeof loggedInUserId !== "number") {
+    return <p>loading...</p>;
   }
 
   // 与えられた日付を整形して表示
@@ -83,7 +85,6 @@ const SinglePost = () => {
     return text.slice(0, maxLength) + "...";
   };
 
-  
   const linkDestination =
     loggedInUserId === itemData.user_id
       ? "/users/me"
@@ -94,18 +95,18 @@ const SinglePost = () => {
     navigate(`/posts/${item_id}/request`);
   };
 
-  // console.log(
-  //   "itemData.user_id:",
-  //   itemData.user_id,
-  //   "Type:",
-  //   typeof itemData.user_id
-  // );
-  // console.log(
-  //   "loggedInUserId:",
-  //   loggedInUserId,
-  //   "Type:",
-  //   typeof loggedInUserId
-  // );
+  console.log(
+    "itemData.user_id:",
+    itemData.user_id,
+    "Type:",
+    typeof itemData.user_id
+  );
+  console.log(
+    "loggedInUserId:",
+    loggedInUserId,
+    "Type:",
+    typeof loggedInUserId
+  );
 
   // itemDataが存在する場合、取得した投稿データをもとに内容を表示
   return (
@@ -168,6 +169,11 @@ const SinglePost = () => {
             </Tag>
           )}
         </div>
+        <div>
+        {itemData.user_id !== loggedInUserId && (
+          <RequestButton label="リクエスト" onClick={handleRequestClick} />
+        )}
+      </div>
         <div className={styles["single-post__icons"]}>
           <LikeButton itemId={item_id} />
           <FavoriteButton itemId={item_id} />
@@ -200,11 +206,11 @@ const SinglePost = () => {
           </p>
         )}
       </div>
-      <div>
+      {/* <div>
         {itemData.user_id !== loggedInUserId && (
           <RequestButton label="リクエスト" onClick={handleRequestClick} />
         )}
-      </div>
+      </div> */}
     </>
   );
 };

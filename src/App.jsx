@@ -23,7 +23,8 @@ import Profile from "./pages/Profile/Profile";
 import Follow from "./pages/Follow/Follow";
 import PrivateRoute from "./components/common/PrivateRoute";
 import RequestPage from "./pages/RequestPage/RequestPage";
-import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
+import NotificationsList from "./pages/NotificationsList/NotificationsList";
+import NotificationDetail from "./pages/NotificationDetail/NotificationDetail";
 
 function App() {
   return (
@@ -67,7 +68,14 @@ function App() {
                   {/* 関数内でuserIdと統一してあるので、user_idではなくuserIdとする */}
                   <Route path="/users/:userId" element={<MyPage />}></Route>
                   <Route path="/users/me" element={<MyPage />}></Route>
-                  <Route path="/notifications" element={<NotificationsPage/>}></Route>
+                  <Route
+                    path="/notifications"
+                    element={<NotificationsList />}
+                  ></Route>
+                  <Route
+                    path="/notifications/:id"
+                    element={<NotificationDetail />}
+                  ></Route>
                   <Route path="/settings" element={<Settings />}></Route>
                   <Route path="/favorites" element={<Favorites />}></Route>
                   <Route
