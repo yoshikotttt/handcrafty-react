@@ -22,6 +22,8 @@ import Likes from "./pages/Likes/Likes";
 import Profile from "./pages/Profile/Profile";
 import Follow from "./pages/Follow/Follow";
 import PrivateRoute from "./components/common/PrivateRoute";
+import RequestPage from "./pages/RequestPage/RequestPage";
+import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
 
 function App() {
   return (
@@ -47,6 +49,10 @@ function App() {
                     path="/posts/:item_id"
                     element={<SinglePost />}
                   ></Route>
+                  <Route
+                    path="/posts/:item_id/request"
+                    element={<RequestPage />}
+                  ></Route>
                   <Route path="/users/profile" element={<Profile />}></Route>
                   <Route
                     path="/users/:userId/:type"
@@ -61,7 +67,7 @@ function App() {
                   {/* 関数内でuserIdと統一してあるので、user_idではなくuserIdとする */}
                   <Route path="/users/:userId" element={<MyPage />}></Route>
                   <Route path="/users/me" element={<MyPage />}></Route>
-
+                  <Route path="/notifications" element={<NotificationsPage/>}></Route>
                   <Route path="/settings" element={<Settings />}></Route>
                   <Route path="/favorites" element={<Favorites />}></Route>
                   <Route
