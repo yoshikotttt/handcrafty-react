@@ -35,7 +35,10 @@ const NotificationsList = () => {
     return () => clearInterval(intervalId); // コンポーネントのアンマウント時にタイマーをクリア
   }, []);
 
-  const updateNotificationsStatus = async (notificationId) => {
+  const updateNotificationsStatus = async (notificationId,currentStatus) => {
+     if (currentStatus !== 0) {
+       return; // statusが0でない場合は関数を終了
+     }
     try {
         await axios.post(`${baseURL}/api/notifications/${notificationId}`,
         {
@@ -62,11 +65,29 @@ const NotificationsList = () => {
         {notificationsData &&
           notificationsData.map((notification) => (
             <div key={notification.id}>
-              <Link 
-              to={`/notifications/${notification.id}`}
-              onClick={()=>updateNotificationsStatus(notification.id)}
+              <Link
+                to={`/notifications/${notification.id}`}
+                onClick={() => updateNotificationsStatus(notification.id,notification.status)}
               >
-                <p>{notification.from_user.name}さんから通知が来ています</p>
+                {/* statusが0の場合の表示 */}
+                {notification.status === 0 && (
+                  <p>
+                    {notification.from_user.name}
+                    さんから依頼が来ています
+                  </p>
+                )}
+
+                {/* statusが2の場合の表示 */}
+                {notification.status === 2 && (
+                  <p>
+                    {notification.to_user.name}さんに引受されました
+                  </p>
+                )}
+
+                {/* statusが3の場合の表示 */}
+                {notification.status === 3 && (
+                  <p>{notification.to_user.name}さんはお断りしました</p>
+                )}
               </Link>
             </div>
           ))}

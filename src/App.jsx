@@ -25,6 +25,7 @@ import PrivateRoute from "./components/common/PrivateRoute";
 import RequestPage from "./pages/RequestPage/RequestPage";
 import NotificationsList from "./pages/NotificationsList/NotificationsList";
 import NotificationDetail from "./pages/NotificationDetail/NotificationDetail";
+import ReplyPage from "./pages/ReplyPage/ReplyPage";
 
 function App() {
   return (
@@ -75,6 +76,10 @@ function App() {
                   <Route
                     path="/notifications/:id"
                     element={<NotificationDetail />}
+                  ></Route>
+                  <Route
+                    path="/notifications/:id/reply"
+                    element={<ReplyPage />}
                   ></Route>
                   <Route path="/settings" element={<Settings />}></Route>
                   <Route path="/favorites" element={<Favorites />}></Route>
