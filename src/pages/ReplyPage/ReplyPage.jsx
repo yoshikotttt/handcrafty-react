@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ReplyPage = () => {
@@ -30,7 +30,7 @@ const ReplyPage = () => {
     fetchNotification();
   }, [id]);
 
-  console.log(notification);
+  // console.log(notification);
   const handleRequestSubmit = async () => {
     try {
       await axios.post(
