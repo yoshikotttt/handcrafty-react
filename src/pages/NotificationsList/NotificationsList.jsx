@@ -1,7 +1,7 @@
 import { notification } from 'antd';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const NotificationsList = () => {
@@ -24,7 +24,7 @@ const NotificationsList = () => {
           },
         });
         setNotificationsData(response.data.notifications);
-        console.log("data", response.data.notifications);
+        // console.log("data", response.data.notifications);
       } catch (err) {
         setError("データの取得に失敗しました");
       }
@@ -62,12 +62,17 @@ const NotificationsList = () => {
 
         {!error && !notificationsData.length && <div>ローディング中...</div>}
 
-        {notificationsData &&
+        {notificationsData && notificationsData.length > 0 ? (
           notificationsData.map((notification) => (
             <div key={notification.id}>
               <Link
                 to={`/notifications/${notification.id}`}
-                onClick={() => updateNotificationsStatus(notification.id,notification.status)}
+                onClick={() =>
+                  updateNotificationsStatus(
+                    notification.id,
+                    notification.status
+                  )
+                }
               >
                 {/* statusが0の場合の表示 */}
                 {notification.status === 0 && (
@@ -79,9 +84,7 @@ const NotificationsList = () => {
 
                 {/* statusが2の場合の表示 */}
                 {notification.status === 2 && (
-                  <p>
-                    {notification.to_user.name}さんに引受されました
-                  </p>
+                  <p>{notification.to_user.name}さんに引受されました</p>
                 )}
 
                 {/* statusが3の場合の表示 */}
@@ -90,7 +93,10 @@ const NotificationsList = () => {
                 )}
               </Link>
             </div>
-          ))}
+          ))
+        ) : (
+          <p>メッセージはありません</p>
+        )}
       </div>
     </div>
   );

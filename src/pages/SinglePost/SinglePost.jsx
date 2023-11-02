@@ -43,8 +43,8 @@ const SinglePost = () => {
     fetchData();
   }, [item_id]);
 
-  console.log("itemData:", itemData);
-  console.log("loggedInUserId:", loggedInUserId);
+  // console.log("itemData:", itemData);
+  // console.log("loggedInUserId:", loggedInUserId);
 
   if (isLoading || !itemData || typeof loggedInUserId !== "number") {
     return <p>loading...</p>;
@@ -95,18 +95,18 @@ const SinglePost = () => {
     navigate(`/posts/${item_id}/request`);
   };
 
-  console.log(
-    "itemData.user_id:",
-    itemData.user_id,
-    "Type:",
-    typeof itemData.user_id
-  );
-  console.log(
-    "loggedInUserId:",
-    loggedInUserId,
-    "Type:",
-    typeof loggedInUserId
-  );
+  // console.log(
+  //   "itemData.user_id:",
+  //   itemData.user_id,
+  //   "Type:",
+  //   typeof itemData.user_id
+  // );
+  // console.log(
+  //   "loggedInUserId:",
+  //   loggedInUserId,
+  //   "Type:",
+  //   typeof loggedInUserId
+  // );
 
   // itemDataが存在する場合、取得した投稿データをもとに内容を表示
   return (

@@ -26,6 +26,7 @@ import RequestPage from "./pages/RequestPage/RequestPage";
 import NotificationsList from "./pages/NotificationsList/NotificationsList";
 import NotificationDetail from "./pages/NotificationDetail/NotificationDetail";
 import ReplyPage from "./pages/ReplyPage/ReplyPage";
+import ChatRoom from "./pages/ChatRoom/ChatRoom";
 
 function App() {
   return (
@@ -80,6 +81,10 @@ function App() {
                   <Route
                     path="/notifications/:id/reply"
                     element={<ReplyPage />}
+                  ></Route>
+                  <Route
+                    path="/chat/:roomId"
+                    element={<ChatRoom />}
                   ></Route>
                   <Route path="/settings" element={<Settings />}></Route>
                   <Route path="/favorites" element={<Favorites />}></Route>

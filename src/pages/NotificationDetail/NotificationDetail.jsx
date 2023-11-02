@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const NotificationDetail = () => {
@@ -47,7 +47,7 @@ const NotificationDetail = () => {
           },
         }
       );
-      navigate(-2);
+      navigate(-3);
     } catch (err) {
       console.error("データの更新に失敗しました:", err);
     }
@@ -62,7 +62,14 @@ const NotificationDetail = () => {
     return `${year}年${month}月${day}日`;
   };
 
-  console.log(notification);
+  const createRoomId = (userID1, userID2) => {
+    if (userID1 > userID2) {
+      [userID1, userID2] = [userID2, userID1];
+    }
+    return `${userID1}_${userID2}`;
+  };
+
+//   console.log(notification);
   return (
     <div>
       {notification ? (
@@ -79,7 +86,10 @@ const NotificationDetail = () => {
           {/* 自分が依頼して、相手が承認した場合 */}
           {notification.status === 2 &&
             notification.from_user.id === loggedInUserId && (
-              <p>{notification.response_message}</p>
+              <>
+                <p>{notification.response_message}</p>
+                <Link to={`/chat/${createRoomId(notification.from_user.id,notification.to_user.id)}`}>チャットへ</Link>
+              </>
             )}
 
           {/* 自分が依頼して、相手が拒否した場合 */}
