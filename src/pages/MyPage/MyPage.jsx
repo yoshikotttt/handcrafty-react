@@ -8,6 +8,7 @@ import ProfileButton from "../../components/common/ProfileButton/ProfileButton";
 import Counts from "../../components/common/Counts/Counts";
 import { PiFinnTheHumanLight } from "react-icons/pi";
 
+
 const MyPage = () => {
   const [items, setItems] = useState([]);
   const [user, setUser] = useState([]);
@@ -54,6 +55,8 @@ const MyPage = () => {
     return <p className={styles["loading-text"]}>loading...</p>;
   }
 
+  
+
   return (
     <>
       <div className={styles["post-list"]}>
@@ -69,7 +72,10 @@ const MyPage = () => {
               className={styles["post-list__avatar"]}
             />
           ) : (
-            <PiFinnTheHumanLight size="4rem" className={styles["post-list__avatar"]} />
+            <PiFinnTheHumanLight
+              size="4rem"
+              className={styles["post-list__avatar"]}
+            />
           )}
 
           {user && (
@@ -84,6 +90,7 @@ const MyPage = () => {
         <div className={styles["post-list__buttons"]}>
           {isOwnProfile && <ProfileButton />}
           {!isOwnProfile && <FollowButton userId={user.id} />}
+  
         </div>
 
         {/* <div className={styles["post-list__bio-title"]}>自己紹介</div> */}

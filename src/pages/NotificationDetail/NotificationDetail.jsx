@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import styles from "./NotificationDetail.module.scss";
 
 const NotificationDetail = () => {
   const { id } = useParams();
@@ -69,46 +70,70 @@ const NotificationDetail = () => {
     return `${userID1}_${userID2}`;
   };
 
-//   console.log(notification);
+  //   console.log(notification);
   return (
-    <div>
+    <div className={styles.notificationContainer}>
       {notification ? (
-        <div>
-          <div> {formatCreatedAt(notification.created_at)}</div>
+        <div className={styles.notification}>
+          <div className={styles.date}>
+            {" "}
+            {formatCreatedAt(notification.created_at)}
+          </div>
+
           {notification.status === 1 &&
             notification.to_user.id === loggedInUserId && (
-              <div>
-                <p>依頼者：{notification.from_user.name}</p>
+              <div className={styles.requestInfo}>
+                <p className={styles.requesterName}>
+                  依頼者：{notification.from_user.name}
+                </p>
+                <p className={styles.requesterName}>リクエストメッセージ</p>
                 <p>{notification.message}</p>
               </div>
             )}
 
-          {/* 自分が依頼して、相手が承認した場合 */}
           {notification.status === 2 &&
             notification.from_user.id === loggedInUserId && (
-              <>
+              <div className={styles.approvedNotification}>
                 <p>{notification.response_message}</p>
-                <Link to={`/chat/${createRoomId(notification.from_user.id,notification.to_user.id)}`}>チャットへ</Link>
-              </>
+                <Link
+                  className={styles.chatLink}
+                  to={`/chat/${createRoomId(
+                    notification.from_user.id,
+                    notification.to_user.id
+                  )}`}
+                >
+                  チャットへ
+                </Link>
+              </div>
             )}
 
-          {/* 自分が依頼して、相手が拒否した場合 */}
           {notification.status === 3 &&
             notification.from_user.id === loggedInUserId && (
-              <p>{notification.response_message}</p>
+              <div className={styles.declinedNotification}>
+                <p>{notification.response_message}</p>
+              </div>
             )}
 
-          {/* 依頼を承認または拒否するオプション */}
           {notification.status === 1 &&
             notification.to_user.id === loggedInUserId && (
-              <>
-                <Link to={`/notifications/${id}/reply`}>承認</Link>
-                <button onClick={handleDeclineClick}>お断り</button>
-              </>
+              <div className={styles.responseOptions}>
+                <button
+                  className={styles.declineButton}
+                  onClick={handleDeclineClick}
+                >
+                  お断り
+                </button>
+                <Link
+                  className={styles.approveLink}
+                  to={`/notifications/${id}/reply`}
+                >
+                  引き受ける
+                </Link>
+              </div>
             )}
         </div>
       ) : (
-        <div>データがありません</div>
+        <div className={styles.noData}>データがありません</div>
       )}
     </div>
   );

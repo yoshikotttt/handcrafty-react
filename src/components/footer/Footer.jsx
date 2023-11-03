@@ -25,13 +25,15 @@ const Footer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}/api/notifications`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUnreadNotifications(response.data.notifications.length);
-
+        const response = await axios.get(
+          `${baseURL}/api/notifications/unread/count`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setUnreadNotifications(response.data.unreadCount);
       } catch (err) {
         setError("データの取得に失敗しました");
       }
@@ -41,6 +43,7 @@ const Footer = () => {
 
     return () => clearInterval(intervalId); // コンポーネントのアンマウント時にタイマーをクリア
   }, []);
+
 
   // アイコンクリック時のハンドラ関数。指定されたパスに遷移する
   // 追加のロジックがある場合はLinkではなくイベントを使う
@@ -84,7 +87,7 @@ const Footer = () => {
           <HiOutlineMail
             size="1.5rem"
             className={styles["individualIconStyle"]}
-            onClick={() => handleIconClick("/notifications")}
+            onClick={() => handleIconClick("/messages-dashboard")}
           />
         </Badge>
         <p className={styles["icon-container__label"]}>通知</p>

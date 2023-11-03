@@ -1,0 +1,55 @@
+// YourStylesheetName.module.scss
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userSection {
+  margin: 50px;
+  gap: 15px;
+  display: flex;
+}
+
+.avatar {
+  // アバターのスタイル
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.userName {
+  // ユーザー名のスタイル
+  font-weight: bold;
+}
+
+.textarea {
+  // テキストエリアのスタイル
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  margin: auto;
+}
+
+.submitButton {
+  width: 9rem;
+  padding: 0.5rem;
+  border: 0.5px solid #d2c4b2;
+  border-radius: 1rem;
+  margin: auto;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  background-color: #e8aaa3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 30px;
+
+  &:hover {
+    background-color: #d9877e;
+  }
+}

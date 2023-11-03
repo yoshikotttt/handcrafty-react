@@ -1,0 +1,77 @@
+.notificationsContainer {
+  padding: 20px;
+}
+
+.errorContainer {
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.loading {
+  color: #999;
+}
+
+.notificationItem {
+  border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  background-color: #faf9f5;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+.notificationLink {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.textContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.dateText {
+  margin: 0;
+  font-size: 0.9rem; /* 必要に応じてフォントサイズを調整してください */
+  color: #333; /* 日付のテキスト色 */
+}
+
+.messageText {
+  margin: 0;
+  font-size: 1rem;
+  color: #555; /* メッセージのテキスト色 */
+}
+.notificationContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 7rem;
+   border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  background-color: #faf9f5;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+
+  .messageIcon {
+   margin-right: 10px;
+  }
+}
+
+.noMessage {
+  font-style: italic;
+  color: #999;
+}

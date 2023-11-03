@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import styles from "./RequestPage.module.scss";
 
 const RequestPage = () => {
   const { item_id } = useParams();
@@ -54,24 +55,31 @@ const RequestPage = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <div className={styles.container}>
       {userData && (
-        <>
-          <img src={`${baseURL}/${userData.avatar_url}`} alt="" />
-          <p>{userData.name}</p>
-        </>
+        <div className={styles.userSection}>
+          <img
+            className={styles.avatar}
+            src={`${baseURL}/${userData.avatar_url}`}
+            alt="ユーザーのアバター"
+          />
+          <p className={styles.userName}>{userData.name} さんへのメッセージ</p>
+        </div>
       )}
 
       <textarea
+        className={styles.textarea}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="メッセージを入力してください（必須）"
-        name=""
-        id=""
+        name="message"
+        id="messageTextArea"
         cols="30"
-        rows="10"
+        rows="15"
       />
-      <button onClick={handleRequestSubmit}>リクエストを送信</button>
+      <button className={styles.submitButton} onClick={handleRequestSubmit}>
+        リクエストを送信
+      </button>
     </div>
   );
 };
