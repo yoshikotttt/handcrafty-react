@@ -64,18 +64,18 @@ const ChatRoom = () => {
   );
 
   return (
-    <div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.messages}>
         {sortedMessages.length === 0 ? (
           <p>メッセージはありません</p>
         ) : (
-          sortedMessages.map((message) => (
+          [...sortedMessages].reverse().map((message) => (
             <div
               key={message.id}
               className={
                 message.from_user_id === loggedInUserId
-                  ? styles["message-right"]
-                  : styles["message-left"]
+                  ? styles.messageRight
+                  : styles.messageLeft
               }
             >
               {message.body}
@@ -84,15 +84,16 @@ const ChatRoom = () => {
         )}
       </div>
 
-      {/* 以下はメッセージ入力と送信の部分です。 */}
-      <div>
+      <div className={styles.inputArea}>
         <input
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="メッセージを入力"
         />
-        <button onClick={handleSendMessage}>送信</button>
+        <button className={styles.inputButton} onClick={handleSendMessage}>
+          送信
+        </button>
       </div>
     </div>
   );

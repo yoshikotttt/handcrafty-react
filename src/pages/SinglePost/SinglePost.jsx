@@ -169,14 +169,13 @@ const SinglePost = () => {
             </Tag>
           )}
         </div>
-        <div>
-        {itemData.user_id !== loggedInUserId && (
-          <RequestButton label="リクエスト" onClick={handleRequestClick} />
-        )}
-      </div>
+        <div></div>
         <div className={styles["single-post__icons"]}>
           <LikeButton itemId={item_id} />
           <FavoriteButton itemId={item_id} />
+          {itemData.user_id !== loggedInUserId && (
+            <RequestButton label="リクエスト" onClick={handleRequestClick} />
+          )}
         </div>
         <LikeNotification itemId={item_id} />
         <p className={styles["single-post__title"]}>{itemData.title}</p>

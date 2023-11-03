@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import styles from "./ReplyPage.module.scss"
 
 const ReplyPage = () => {
   const { id } = useParams();
@@ -47,7 +48,7 @@ const ReplyPage = () => {
         }
       );
       alert("メッセージを送信しました");
-      navigate(-1);
+      navigate(-2);
     } catch (err) {
       alert("メッセージの送信に失敗しました");
     }
@@ -59,30 +60,33 @@ const ReplyPage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
-  return (
-    <div>
-      {notification && (
-        <>
-          <div>
-            <p>受信内容</p>
-            <p>{notification.from_user.name}　さんより</p>
-            <p>{notification.message}</p>
-          </div>
-        </>
-      )}
+ return (
+   <div className={styles.container}>
+     {notification && (
+       <div className={styles.notification}>
+         <p className={styles.notificationTitle}>リクエストメッセージ</p>
+         <p className={styles.userName}>
+           {notification.from_user.name}　さんより
+         </p>
+         <p className={styles.notificationMessage}>{notification.message}</p>
+       </div>
+     )}
 
-      <textarea
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="返信メッセージを入力してください（必須）"
-        name=""
-        id=""
-        cols="30"
-        rows="10"
-      />
-      <button onClick={handleRequestSubmit}>メッセージを送信</button>
-    </div>
-  );
+     <textarea
+       value={message}
+       onChange={(e) => setMessage(e.target.value)}
+       placeholder="返信メッセージを入力してください（必須）"
+       name="replyMessage"
+       id="replyTextArea"
+       cols="30"
+       rows="10"
+       className={styles.textarea}
+     />
+     <button className={styles.submitButton} onClick={handleRequestSubmit}>
+       メッセージを送信
+     </button>
+   </div>
+ );
 };
 
 export default ReplyPage;
