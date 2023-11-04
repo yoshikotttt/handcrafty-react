@@ -38,13 +38,13 @@
 }
 
 .textContent {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .dateText {
   margin: 0;
-  font-size: 0.9rem; /* 必要に応じてフォントサイズを調整してください */
+  font-size: 0.8rem; /* 必要に応じてフォントサイズを調整してください */
   color: #333; /* 日付のテキスト色 */
 }
 
@@ -58,16 +58,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  height: 7rem;
-   border: 1px solid #e0e0e0;
-  border-radius: 1rem;
-  background-color: #faf9f5;
-  padding: 10px;
+  height: 4rem;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  margin: 5px;
   margin-bottom: 10px;
-  transition: background-color 0.3s;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: #333;
 
   .messageIcon {
-   margin-right: 10px;
+    margin-right: 10px;
   }
 }
 
