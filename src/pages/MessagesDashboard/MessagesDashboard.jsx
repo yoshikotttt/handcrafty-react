@@ -4,9 +4,32 @@ import ChatList from '../ChatList/ChatList'
 import { BellOutlined, MessageOutlined } from "@ant-design/icons";
 import { Tabs, ConfigProvider } from "antd";
 
-const { TabPane } = Tabs;
+
 
 const MessagesDashboard = () => {
+     const items = [
+       {
+         label: (
+           <span>
+             <BellOutlined />
+             通知
+           </span>
+         ),
+         key: "1",
+         children: <NotificationsList />,
+       },
+       {
+         label: (
+           <span>
+             <MessageOutlined />
+             チャット
+           </span>
+         ),
+         key: "2",
+         children: <ChatList />,
+       },
+     ];
+
   return (
     <ConfigProvider
       theme={{
@@ -24,30 +47,7 @@ const MessagesDashboard = () => {
       }}
     >
       <div>
-        <Tabs defaultActiveKey="1" centered>
-          <TabPane
-            tab={
-              <span>
-                <BellOutlined />
-                通知
-              </span>
-            }
-            key="1"
-          >
-            <NotificationsList />
-          </TabPane>
-          <TabPane
-            tab={
-              <span>
-                <MessageOutlined />
-                チャット
-              </span>
-            }
-            key="2"
-          >
-            <ChatList />
-          </TabPane>
-        </Tabs>
+        <Tabs defaultActiveKey="1" centered items={items} />
       </div>
     </ConfigProvider>
   );

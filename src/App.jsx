@@ -28,6 +28,7 @@ import NotificationDetail from "./pages/NotificationDetail/NotificationDetail";
 import ReplyPage from "./pages/ReplyPage/ReplyPage";
 import ChatRoom from "./pages/ChatRoom/ChatRoom";
 import MessagesDashboard from "./pages/MessagesDashboard/MessagesDashboard";
+import ChatList from "./pages/ChatList/ChatList";
 
 function App() {
   return (
@@ -83,8 +84,12 @@ function App() {
                     path="/notifications/:id/reply"
                     element={<ReplyPage />}
                   ></Route>
+                  <Route path="/chat/users" element={<ChatList />}></Route>
                   <Route path="/chat/:roomId" element={<ChatRoom />}></Route>
-                  <Route path="/messages-dashboard" element={<MessagesDashboard />}></Route>
+                  <Route
+                    path="/messages-dashboard"
+                    element={<MessagesDashboard />}
+                  ></Route>
                   <Route path="/settings" element={<Settings />}></Route>
                   <Route path="/favorites" element={<Favorites />}></Route>
                   <Route
