@@ -1,9 +1,24 @@
-# React + Vite
+# 手芸の写真投稿サイト (Craft Photo Sharing Site)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+このプロジェクトは、手芸の写真を共有するためのウェブサイトのフロントエンド部分をReactとViteを使って作成しています。バックエンド部分はLaravel（API）で構築されており、フロントエンドとの通信はRESTful APIを通じて行います。
 
-Currently, two official plugins are available:
+## 特徴
+- モバイル対応のCSSスタイリング
+- 写真の投稿と閲覧機能
+- `react-webcam`を使用したウェブカメラ統合
+- ユーザー認証（bearer tokenを利用）
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# handcrafty-react
+## 主な機能
+- 新規登録
+- ログイン/ログアウト
+- 写真の投稿
+- いいね
+- お気に入り追加
+- ユーザーのフォロー
+
+## 使用技術
+- **フロントエンド**: React, Vite
+- **バックエンド**: Laravel (API)
+- **パッケージ管理**: npm
+
+

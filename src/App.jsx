@@ -22,6 +22,13 @@ import Likes from "./pages/Likes/Likes";
 import Profile from "./pages/Profile/Profile";
 import Follow from "./pages/Follow/Follow";
 import PrivateRoute from "./components/common/PrivateRoute";
+import RequestPage from "./pages/RequestPage/RequestPage";
+import NotificationsList from "./pages/NotificationsList/NotificationsList";
+import NotificationDetail from "./pages/NotificationDetail/NotificationDetail";
+import ReplyPage from "./pages/ReplyPage/ReplyPage";
+import ChatRoom from "./pages/ChatRoom/ChatRoom";
+import MessagesDashboard from "./pages/MessagesDashboard/MessagesDashboard";
+import ChatList from "./pages/ChatList/ChatList";
 
 function App() {
   return (
@@ -47,6 +54,10 @@ function App() {
                     path="/posts/:item_id"
                     element={<SinglePost />}
                   ></Route>
+                  <Route
+                    path="/posts/:item_id/request"
+                    element={<RequestPage />}
+                  ></Route>
                   <Route path="/users/profile" element={<Profile />}></Route>
                   <Route
                     path="/users/:userId/:type"
@@ -61,7 +72,24 @@ function App() {
                   {/* 関数内でuserIdと統一してあるので、user_idではなくuserIdとする */}
                   <Route path="/users/:userId" element={<MyPage />}></Route>
                   <Route path="/users/me" element={<MyPage />}></Route>
-
+                  <Route
+                    path="/notifications"
+                    element={<NotificationsList />}
+                  ></Route>
+                  <Route
+                    path="/notifications/:id"
+                    element={<NotificationDetail />}
+                  ></Route>
+                  <Route
+                    path="/notifications/:id/reply"
+                    element={<ReplyPage />}
+                  ></Route>
+                  <Route path="/chat/users" element={<ChatList />}></Route>
+                  <Route path="/chat/:roomId" element={<ChatRoom />}></Route>
+                  <Route
+                    path="/messages-dashboard"
+                    element={<MessagesDashboard />}
+                  ></Route>
                   <Route path="/settings" element={<Settings />}></Route>
                   <Route path="/favorites" element={<Favorites />}></Route>
                   <Route

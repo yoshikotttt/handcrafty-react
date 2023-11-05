@@ -11,7 +11,7 @@ import LikeButton from "../../components/common/LikeButton/LikeButton";
 import FavoriteButton from "../../components/common/FavoriteButton/FavoriteButton";
 import LikeNotification from "../../components/common/LikeNotification/LikeNotification";
 import { PiFinnTheHumanDuotone } from "react-icons/pi";
-
+import RequestButton from "../../components/common/RequestButton/RequestButton";
 
 const SinglePost = () => {
   // URLからitem_idを取得
@@ -19,7 +19,8 @@ const SinglePost = () => {
   // 取得したデータの保持
   const [itemData, setItemData] = useState(null);
   // CookieからログインユーザーのIDを取得
-  const loggedInUserId = Cookies.get("user_id");
+  const loggedInUserId = Number(Cookies.get("user_id"));
+
   const [isLoading, setIsLoading] = useState(true);
   const baseURL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const SinglePost = () => {
         const responseData = response.data;
         setItemData(responseData);
         setIsLoading(false);
-        console.log("res", responseData);
+        // console.log("res", responseData);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
         setIsLoading(false);
@@ -42,9 +43,11 @@ const SinglePost = () => {
     fetchData();
   }, [item_id]);
 
-  console.log()
-  if (isLoading) {
-    return <p className={styles["loading-text"]}>loading...</p>;
+  // console.log("itemData:", itemData);
+  // console.log("loggedInUserId:", loggedInUserId);
+
+  if (isLoading || !itemData || typeof loggedInUserId !== "number") {
+    return <p>loading...</p>;
   }
 
   // 与えられた日付を整形して表示
@@ -82,13 +85,28 @@ const SinglePost = () => {
     return text.slice(0, maxLength) + "...";
   };
 
-  //投稿者名のリンク先を、ログインユーザーと一致するかどうかで分ける データの型が一致していないので修正が必要
-       
-
   const linkDestination =
-    loggedInUserId == itemData.user_id
+    loggedInUserId === itemData.user_id
       ? "/users/me"
       : `/users/${itemData.user_id}`;
+
+  //RequestButtonのページ遷移
+  const handleRequestClick = () => {
+    navigate(`/posts/${item_id}/request`);
+  };
+
+  // console.log(
+  //   "itemData.user_id:",
+  //   itemData.user_id,
+  //   "Type:",
+  //   typeof itemData.user_id
+  // );
+  // console.log(
+  //   "loggedInUserId:",
+  //   loggedInUserId,
+  //   "Type:",
+  //   typeof loggedInUserId
+  // );
 
   // itemDataが存在する場合、取得した投稿データをもとに内容を表示
   return (
@@ -123,8 +141,8 @@ const SinglePost = () => {
             </div>
           </Link>
           <div></div>
-          {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示  データの型が一致していないので修正が必要*/}
-          {itemData.user_id == loggedInUserId && (
+          {/* 投稿ユーザーとログインユーザーが同じ場合、編集ボタンと削除ボタンを表示 */}
+          {itemData.user_id === loggedInUserId && (
             <div className={styles["button-container"]}>
               <EditButton itemId={item_id} />
             </div>
@@ -151,9 +169,13 @@ const SinglePost = () => {
             </Tag>
           )}
         </div>
+        <div></div>
         <div className={styles["single-post__icons"]}>
           <LikeButton itemId={item_id} />
           <FavoriteButton itemId={item_id} />
+          {itemData.user_id !== loggedInUserId && (
+            <RequestButton label="リクエスト" onClick={handleRequestClick} />
+          )}
         </div>
         <LikeNotification itemId={item_id} />
         <p className={styles["single-post__title"]}>{itemData.title}</p>
@@ -183,6 +205,11 @@ const SinglePost = () => {
           </p>
         )}
       </div>
+      {/* <div>
+        {itemData.user_id !== loggedInUserId && (
+          <RequestButton label="リクエスト" onClick={handleRequestClick} />
+        )}
+      </div> */}
     </>
   );
 };
