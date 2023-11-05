@@ -42,6 +42,7 @@ const RequestPage = () => {
         },
         {
           headers: headers,
+          withCredentials: true,
         }
       );
       alert("リクエストを送信しました");
