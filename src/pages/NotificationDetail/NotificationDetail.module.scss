@@ -24,11 +24,18 @@
     margin-bottom: 0.5rem;
 }
 
-.approvedNotification, .declinedNotification {
+.declinedNotification {
     margin: 0.5rem 0;
+
 }
 
-.chatLink, .approveLink {
+.approvedNotification {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.approveLink {
     width: 8rem;
     padding: 0.5rem;
     border: 0.5px solid #d2c4b2;
@@ -40,6 +47,23 @@
     color: white;
     text-decoration: none;
     font-size: 0.9rem;
+}
+
+.chatLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8rem;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    margin: auto;
+    display: inline-block;
+    text-align: center;
+    background-color: #c0dff7;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 100px;
 }
 
 .declineButton {
@@ -66,4 +90,9 @@
     color: #888;
     text-align: center;
     margin-top: 1rem;
+}
+
+.backButton {
+    margin-top: 150px;
+    padding: 12px;
 }

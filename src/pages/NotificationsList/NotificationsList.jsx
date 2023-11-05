@@ -112,7 +112,9 @@ const NotificationsList = () => {
                         {formatCreatedAt(notification.created_at)}
                       </p>
                       <p className={styles.messageText}>
-                        {notification.from_user.name}
+                        <span className={styles.nameText}>
+                          {notification.from_user.name}
+                        </span>
                         さんから依頼が届いています
                       </p>
                     </div>
@@ -131,7 +133,9 @@ const NotificationsList = () => {
                         {formatCreatedAt(notification.created_at)}
                       </p>
                       <p className={styles.messageText}>
-                        {notification.from_user.name}
+                        <span className={styles.nameText}>
+                          {notification.from_user.name}
+                        </span>
                         さんから依頼が届いています
                       </p>
                     </div>
@@ -150,7 +154,10 @@ const NotificationsList = () => {
                         {formatCreatedAt(notification.updated_at)}
                       </p>
                       <p className={styles.messageText}>
-                        {notification.to_user.name}さんに引受されました
+                        <span className={styles.nameText}>
+                          {notification.to_user.name}
+                        </span>
+                        さんに引受されました
                       </p>
                     </div>
                     <FaHeartCircleCheck
@@ -168,7 +175,10 @@ const NotificationsList = () => {
                         {formatCreatedAt(notification.updated_at)}
                       </p>
                       <p className={styles.messageText}>
-                        {notification.to_user.name}さんはお断りしました
+                        <span className={styles.nameText}>
+                          {notification.to_user.name}
+                        </span>
+                        さんはお断りしました
                       </p>
                     </div>
                     <FaHeartCircleXmark

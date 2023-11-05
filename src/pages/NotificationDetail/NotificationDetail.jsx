@@ -60,7 +60,11 @@ const NotificationDetail = () => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // 月は0から始まるため+1
     const day = date.getDate();
-    return `${year}年${month}月${day}日`;
+   const hours = date.getHours();
+   const minutes = date.getMinutes().toString().padStart(2, "0"); // 分が1桁の場合、先頭に0を追加
+   // const seconds = date.getSeconds();
+
+   return `${year}年${month}月${day}日　${hours}:${minutes}`;
   };
 
   const createRoomId = (userID1, userID2) => {
@@ -68,6 +72,10 @@ const NotificationDetail = () => {
       [userID1, userID2] = [userID2, userID1];
     }
     return `${userID1}_${userID2}`;
+  };
+
+    const goBack = () => {
+    navigate(-1);
   };
 
   //   console.log(notification);
@@ -109,8 +117,13 @@ const NotificationDetail = () => {
 
           {notification.status === 3 &&
             notification.from_user.id === loggedInUserId && (
-              <div className={styles.declinedNotification}>
-                <p>{notification.response_message}</p>
+              <div>
+                <div className={styles.declinedNotification}>
+                  <p>{notification.response_message}</p>
+                </div>
+                <button className={styles.backButton} onClick={goBack}>
+                  戻る
+                </button>
               </div>
             )}
 

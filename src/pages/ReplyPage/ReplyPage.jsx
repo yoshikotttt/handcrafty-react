@@ -66,7 +66,10 @@ const ReplyPage = () => {
        <div className={styles.notification}>
          <p className={styles.notificationTitle}>リクエストメッセージ</p>
          <p className={styles.userName}>
-           {notification.from_user.name}　さんより
+           <span className={styles.nameText}>
+             {notification.from_user.name}
+           </span>
+           さんより
          </p>
          <p className={styles.notificationMessage}>{notification.message}</p>
        </div>
