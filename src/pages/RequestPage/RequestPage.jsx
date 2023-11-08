@@ -34,7 +34,7 @@ const RequestPage = () => {
         Authorization: `Bearer ${token}`,
       };
       await axios.post(
-        `${baseURL}/api/request/`,
+        `${baseURL}/api/request`,
         {
           to_user_id: userData.id,
           item_id: item_id,
@@ -42,7 +42,7 @@ const RequestPage = () => {
         },
         {
           headers: headers,
-          withCredentials: true,
+          // withCredentials: true,
         }
       );
       alert("リクエストを送信しました");
